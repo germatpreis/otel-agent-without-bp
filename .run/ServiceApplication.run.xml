@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <envs>
+      <env name="JAVA_TOOL_OPTIONS" value="-javaagent:agents/opentelemetry/opentelemetry-javaagent-foobar/target/opentelemetry-javaagent-foobar-2.6.0.jar" />
+      <env name="OTEL_LOGS_EXPORTER" value="otlp" />
+      <env name="OTEL_METRIC_EXPORT_INTERVAL" value="500" />
+      <env name="OTEL_METRICS_EXPORTER" value="otlp" />
+      <env name="OTEL_SERVICE_NAME" value="foobar-service" />
+      <env name="OTEL_TRACES_EXPORTER" value="otlp" />
+      <env name="OTEL_JAVAAGENT_LOGGING" value="application" />
+    </envs>
+    <module name="foobar-service" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.server.ServiceApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -1,17 +1,23 @@
 version: "3.7"
 services:
+  foobar-service:
+    build:
+      context: .
+      dockerfile: foobar-service.Dockerfile
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-infrastructure:4318
+    ports:
+      - "8080:8080"
 
   otel-infrastructure:
     image: grafana/otel-lgtm:latest
     ports:
-      - "51423:3000" # Expose Grafana on port 3000
+      - "51423:3000"
       - "4317:4317" # OpenTelemetry Collector gRPC default port
       - "4318:4318" # OpenTelemetry Collector HTTP default port
-      - "55679:55679" # zpages extension
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin # Example environment variable
+      - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SECURITY_ADMIN_USER=admin
     volumes:
       - ./docker/otel-lgtm/run-otelcol.sh:/otel-lgtm/run-otelcol.sh
       - ./docker/otel-lgtm/otelcol-config.yaml:/otel-lgtm/otelcol-config.yaml
-      # - ./docker/otel-lgtm/run-prometheus.sh:/otel-lgtm/run-prometheus.sh

@@ -1,0 +1,4 @@
+### call foobar
+GET http://localhost:8080
+baggage: manually=set
+

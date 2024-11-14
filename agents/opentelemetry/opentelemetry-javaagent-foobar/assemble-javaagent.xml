@@ -1,0 +1,27 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.2.0 https://maven.apache.org/xsd/assembly-2.2.0.xsd">
+  <id>javaagent</id>
+  <formats>
+    <format>jar</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <dependencySets>
+    <!-- 1. Step: Unpack the opentelemetry-javaagent -->
+    <dependencySet>
+      <outputDirectory>/</outputDirectory>
+      <unpack>true</unpack>
+      <useProjectArtifact>false</useProjectArtifact>
+      <includes>
+        <include>io.opentelemetry.javaagent:opentelemetry-javaagent</include>
+      </includes>
+    </dependencySet>
+    <!-- 2. Step: Copy our customization jar into the /extensions directory -->
+    <dependencySet>
+      <outputDirectory>/extensions</outputDirectory>
+      <unpack>false</unpack>
+      <useProjectArtifact>false</useProjectArtifact>
+      <includes>
+        <include>com.example:opentelemetry-javaagent-foobar-ext</include>
+      </includes>
+    </dependencySet>
+  </dependencySets>
+</assembly>
