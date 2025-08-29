@@ -6,7 +6,7 @@ import io.opentelemetry.sdk.trace.ReadWriteSpan;
 import io.opentelemetry.sdk.trace.ReadableSpan;
 import io.opentelemetry.sdk.trace.SpanProcessor;
 
-public class CatsAreCoolSpanProcessor implements SpanProcessor {
+public class BaggageSpanProcessor implements SpanProcessor {
 
   @Override
   public void onStart(Context parentContext, ReadWriteSpan span) {
@@ -24,7 +24,6 @@ public class CatsAreCoolSpanProcessor implements SpanProcessor {
 
   @Override
   public void onEnd(ReadableSpan span) {
-
   }
 
   @Override
