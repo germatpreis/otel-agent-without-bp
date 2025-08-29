@@ -1,5 +1,11 @@
 # How to build and test
 
+## BUild and restart
+
+```sh
+docker-compose up --build -d foobar-service
+```
+
 ## Build the image docker.io/library/otel-agent-without-bp-foobar-service
 
 ```shell

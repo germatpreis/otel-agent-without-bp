@@ -1,0 +1,12 @@
+.git
+.github
+.idea
+**/target
+**/node_modules
+**/.DS_Store
+**/logs
+**/*.log
+**/*.iml
+README.md
+docker/
+docs/
