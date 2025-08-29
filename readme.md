@@ -1,6 +1,11 @@
 # How to build and test
 
-## BUild and restart
+## Links to check 
+
+https://gitlab.com/HenriqueRRMartins/javaagent-instrumentation
+git@gitlab.com:HenriqueRRMartins/javaagent-instrumentation.git
+
+## Build and restart
 
 ```sh
 docker-compose up --build -d foobar-service
