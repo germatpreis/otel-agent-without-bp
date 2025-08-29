@@ -14,8 +14,8 @@
 
   <properties>
     <opentelemetry.version>1.40.0</opentelemetry.version>
-    <opentelemetry.javaagent.version>2.6.0</opentelemetry.javaagent.version>
-    <opentelemetry.javaagent.alpha.version>2.6.0-alpha</opentelemetry.javaagent.alpha.version>
+    <opentelemetry.javaagent.version>2.19.0</opentelemetry.javaagent.version>
+    <opentelemetry.javaagent.alpha.version>2.19.0-alpha</opentelemetry.javaagent.alpha.version>
   </properties>
 
   <modules>
