@@ -8,6 +8,9 @@ services:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-infrastructure:4318
     ports:
       - "8080:8080"
+    depends_on:
+      - otel-infrastructure
+
 
   otel-infrastructure:
     image: grafana/otel-lgtm:latest
@@ -19,5 +22,12 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SECURITY_ADMIN_USER=admin
     volumes:
-      - ./docker/otel-lgtm/run-otelcol.sh:/otel-lgtm/run-otelcol.sh
+#      - ./docker/otel-lgtm/run-otelcol.sh:/otel-lgtm/run-otelcol.sh
       - ./docker/otel-lgtm/otelcol-config.yaml:/otel-lgtm/otelcol-config.yaml
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:13133/ready" ]
+      interval: 5s
+      timeout: 2s
+      retries: 5
+      start_period: 10s
+
