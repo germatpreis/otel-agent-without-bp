@@ -1,5 +1,11 @@
 # How to build and test
 
+## How to build the docker image in verbose mode (can use ls to check directory contents)
+
+```
+docker-compose build --progress=plain foobar-service-layered-jar
+```
+
 ## Links to check 
 
 https://gitlab.com/HenriqueRRMartins/javaagent-instrumentation
