@@ -1,9 +1,9 @@
 version: "3.7"
 services:
-  foobar-service:
+  foobar-service-manual-dockerfile:
     build:
       context: .
-      dockerfile: foobar-service.Dockerfile
+      dockerfile: foobar-service-repacked-agent-and-ext.Dockerfile
     environment:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-infrastructure:4318
     ports:
@@ -11,6 +11,16 @@ services:
     depends_on:
       - otel-infrastructure
 
+  foobar-service-layered-jar:
+    build:
+      context: .
+      dockerfile: foobar-service-layered-jar.Dockerfile
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-infrastructure:4318
+    ports:
+      - "8080:8080"
+    depends_on:
+      - otel-infrastructure
 
   otel-infrastructure:
     image: grafana/otel-lgtm:latest
