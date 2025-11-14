@@ -15,7 +15,7 @@
     </properties>
 
     <modules>
-        <module>foobar-service</module>
+        <module>foobar-service-repacked-agent-and-ext</module>
         <module>agents</module>
     </modules>
 

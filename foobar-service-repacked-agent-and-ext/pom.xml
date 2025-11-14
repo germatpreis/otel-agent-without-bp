@@ -10,7 +10,7 @@
 		<relativePath />
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>foobar-service</artifactId>
+	<artifactId>foobar-service-repacked-agent-and-ext</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>service</name>
 	<description>Demo project for Spring Boot</description>
