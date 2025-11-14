@@ -29,7 +29,7 @@ ENV JAVA_TOOL_OPTIONS=-javaagent:/app/agents/opentelemetry-javaagent-foobar-2.19
 ENV OTEL_LOGS_EXPORTER=otlp
 ENV OTEL_METRIC_EXPORT_INTERVAL=500
 ENV OTEL_METRICS_EXPORTER=otlp
-ENV OTEL_SERVICE_NAME=foobar-service
+ENV OTEL_SERVICE_NAME=foobar-service-layered-jar
 ENV OTEL_TRACES_EXPORTER=otlp
 #ENV OTEL_JAVAAGENT_LOGGING=application
 
