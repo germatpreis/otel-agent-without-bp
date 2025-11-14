@@ -6,6 +6,7 @@ import io.opentelemetry.sdk.autoconfigure.spi.AutoConfigurationCustomizerProvide
 import io.opentelemetry.sdk.autoconfigure.spi.ConfigProperties;
 import io.opentelemetry.sdk.logs.SdkLoggerProviderBuilder;
 import io.opentelemetry.sdk.trace.SdkTracerProviderBuilder;
+import io.opentelemetry.sdk.trace.export.SpanExporter;
 
 @AutoService(AutoConfigurationCustomizerProvider.class)
 public class ExtAutoConfigurationCustomizerProvider implements AutoConfigurationCustomizerProvider {
@@ -14,6 +15,11 @@ public class ExtAutoConfigurationCustomizerProvider implements AutoConfiguration
   public void customize(AutoConfigurationCustomizer autoConfiguration) {
     autoConfiguration.addTracerProviderCustomizer(this::addTraceProviderCustomizer);
     autoConfiguration.addLoggerProviderCustomizer(this::addLoggerProviderCustomizer);
+    autoConfiguration.addSpanExporterCustomizer(this::addSpanExporterCustomizer);
+  }
+
+  private SpanExporter addSpanExporterCustomizer(SpanExporter spanExporter, ConfigProperties configProperties) {
+    return new FilteringSpanExporter(spanExporter);
   }
 
   private SdkTracerProviderBuilder addTraceProviderCustomizer(
