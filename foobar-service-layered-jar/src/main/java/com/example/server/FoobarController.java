@@ -12,9 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 class FoobarController {
   private static final Logger LOGGER = LoggerFactory.getLogger(FoobarController.class);
 
+  private final FooService fooService;
+
+  public FoobarController(FooService fooService) {
+    this.fooService = fooService;
+  }
+
   @GetMapping
   public ResponseEntity<String> sayFoobar(){
     LOGGER.info("Received a foobar call!");
+
+    fooService.explode();
+
     return ResponseEntity.ok("foobar");
   }
 

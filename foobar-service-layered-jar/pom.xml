@@ -29,12 +29,18 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+    <opentelemetry.javaagent.version>2.19.0</opentelemetry.javaagent.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+    <dependency>
+      <groupId>io.opentelemetry.instrumentation</groupId>
+      <artifactId>opentelemetry-instrumentation-annotations</artifactId>
+      <version>${opentelemetry.javaagent.version}</version>
+    </dependency>
 	</dependencies>
 
 	<build>
