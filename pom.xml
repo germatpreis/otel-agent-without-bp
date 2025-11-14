@@ -17,6 +17,7 @@
     <modules>
         <module>foobar-service-repacked-agent-and-ext</module>
         <module>foobar-service-otel-starter</module>
+        <module>foobar-service-layered-jar</module>
         <module>agents</module>
     </modules>
 
