@@ -22,7 +22,11 @@ class FoobarController {
   public ResponseEntity<String> sayFoobar(){
     LOGGER.info("Received a foobar call!");
 
-    fooService.explode();
+    try {
+      fooService.explode();
+    } catch (Exception e) {
+      /* suppress error in this span */
+    }
 
     return ResponseEntity.ok("foobar");
   }
