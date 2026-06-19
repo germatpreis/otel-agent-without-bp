@@ -1,7 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="ServiceApplication (starter)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <envs>
-      <env name="OTEL_JAVAAGENT_LOGGING" value="application" />
       <env name="OTEL_LOGS_EXPORTER" value="otlp" />
       <env name="OTEL_METRIC_EXPORT_INTERVAL" value="500" />
       <env name="OTEL_METRICS_EXPORTER" value="otlp" />

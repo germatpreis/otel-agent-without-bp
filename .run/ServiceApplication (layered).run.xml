@@ -8,7 +8,7 @@
       <env name="OTEL_TRACES_EXPORTER" value="otlp" />
       <env name="JAVA_TOOL_OPTIONS" value="-javaagent:agents/opentelemetry/opentelemetry-javaagent-foobar/target/opentelemetry-javaagent-foobar-2.19.0.jar" />
     </envs>
-    <module name="foobar-service-layered-jar" />
+    <module name="release-service-layered-jar" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.server.ServiceApplication" />
     <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
     <method v="2">
