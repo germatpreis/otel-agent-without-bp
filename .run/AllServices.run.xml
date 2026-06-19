@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="AllServices" type="CompoundRunConfigurationType">
+    <toRun name="AudittrailApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="DeploymentApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="PackageApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="PolicyEngineApplication" type="SpringBootApplicationConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
