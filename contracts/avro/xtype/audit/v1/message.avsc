@@ -1,0 +1,22 @@
+{
+  "namespace": "xtype.audit.event.internal.v1",
+  "type": "record",
+  "name": "MessageV1",
+  "fields": [
+    {
+      "name": "base",
+      "type": "xtype.common.Base"
+    },
+    {
+      "name": "audit",
+      "type": "xtype.common.AuditContext",
+      "doc": "Audit-trail context for an auditable action."
+    },
+    {
+      "name": "payload",
+      "type": [
+        "xtype.audit.event.internal.v1.data.AuditEventV1"
+      ]
+    }
+  ]
+}

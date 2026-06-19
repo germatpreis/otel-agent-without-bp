@@ -36,6 +36,7 @@
             <!-- COMMON ACROSS ALL CONTEXTS -->
             <import>${avro-spec-base-dir}/xtype/common/base.avsc</import>
             <import>${avro-spec-base-dir}/xtype/common/user.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/common/audit_context.avsc</import>
 
             <!-- SERVICE: INGESTION/SNOW-DATA -->
             <import>${avro-spec-base-dir}/xtype/snow_data-event-internal/v1/data/data_prepared_event.avsc</import>
@@ -43,6 +44,13 @@
             <import>${avro-spec-base-dir}/xtype/snow_data-event-internal/v1/data/data_upload_completed_event.avsc</import>
             <import>${avro-spec-base-dir}/xtype/snow_data-event-internal/v1/data/data_upload_failed_event.avsc</import>
             <import>${avro-spec-base-dir}/xtype/snow_data-event-internal/v1/data/data_uploaded_event.avsc</import>
+
+            <!-- SERVICE: package-service -->
+            <import>${avro-spec-base-dir}/xtype/package/v1/data/deploy_package_event.avsc</import>
+
+            <!-- SERVICE: audit-trail-service -->
+            <import>${avro-spec-base-dir}/xtype/audit/v1/data/audit_event.avsc</import>
+
           </imports>
         </configuration>
         <executions>

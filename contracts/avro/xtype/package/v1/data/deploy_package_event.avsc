@@ -1,0 +1,6 @@
+{
+  "namespace": "xtype.package.event.internal.v1.data",
+  "type": "record",
+  "name": "DeployPackageEventV1",
+  "fields": []
+}

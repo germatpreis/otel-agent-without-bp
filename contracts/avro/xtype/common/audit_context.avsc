@@ -1,0 +1,39 @@
+{
+  "namespace": "xtype.common",
+  "type": "record",
+  "name": "AuditContext",
+  "doc": "Audit-trail context for an auditable action. When present on a message envelope ('audit' field, null = not auditable), the central audit consumer creates an audit log entry from this record plus Base alone, without reading the domain payload.",
+  "fields": [
+    {
+      "name": "operation",
+      "type": "string",
+      "doc": "Dot-namespaced action name, e.g. 'dataset.create', 'audit.cancel'."
+    },
+    {
+      "name": "entity_type",
+      "type": "string",
+      "doc": "Type of the affected object in UI vocabulary, e.g. 'dataset', 'audit'."
+    },
+    {
+      "name": "entity_id",
+      "type": "string",
+      "doc": "Uid of the affected object."
+    },
+    {
+      "name": "entity_name",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Display name of the affected object, so the audit UI needs no lookup."
+    },
+    {
+      "name": "actor_type",
+      "type": "string",
+      "doc": "Who acted: 'USER' (authenticated human) or 'SYSTEM' (automated transition)."
+    },
+    {
+      "name": "actor",
+      "type": "xtype.common.User",
+      "doc": "The acting user. Both name fields are null for SYSTEM actions."
+    }
+  ]
+}
