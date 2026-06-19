@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.xtype.api</groupId>
+    <artifactId>api</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>avro-api</artifactId>
+  <name>Avro API</name>
+
+  <properties>
+    <avro-spec-base-dir>${project.basedir}/../../contracts/avro</avro-spec-base-dir>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.avro</groupId>
+      <artifactId>avro</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.avro</groupId>
+        <artifactId>avro-maven-plugin</artifactId>
+        <configuration>
+          <sourceDirectory>${avro-spec-base-dir}</sourceDirectory>
+          <outputDirectory>${project.build.directory}/generated-sources/avro</outputDirectory>
+          <imports>
+            <!-- COMMON ACROSS ALL CONTEXTS -->
+            <import>${avro-spec-base-dir}/xtype/common/base.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/common/user.avsc</import>
+
+            <!-- SERVICE: SNOW-SYNC -->
+            <import>${avro-spec-base-dir}/xtype/snow-sync/common/snow_base.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/snow-sync/common/snow_deletion_event.avsc</import>
+
+            <!-- SERVICE: SNOW-SYNC/LEGACY -->
+            <import>${avro-spec-base-dir}/xtype/snow-sync/snow_record_legacy-event-internal/v1/data/snow_record_legacy_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/snow-sync/snow_record_legacy-event-internal/v1/data/snow_record_legacy_deletion_event.avsc</import>
+
+            <!-- SERVICE: SNOW-SYNC/XUS -->
+            <import>${avro-spec-base-dir}/xtype/snow-sync/snow_record_xus-event-external/v1/data/us_rus_base.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/snow-sync/snow_record_xus-event-external/v1/data/x_commit_logs.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/snow-sync/snow_record_xus-event-external/v1/data/snow_record_remote_update_set_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/snow-sync/snow_record_xus-event-external/v1/data/snow_record_update_set_event.avsc</import>
+
+            <!-- SERVICE: SNOW-SYNC/CLONING -->
+            <import>${avro-spec-base-dir}/xtype/snow-sync/snow_record_cloning-event-external/v1/data/snow_record_cloning_event.avsc</import>
+
+            <!-- SERVICE: SNOW-SYNC/APP -->
+            <import>${avro-spec-base-dir}/xtype/snow-sync/snow_record_app-event-external/v1/data/snow_record_app_event.avsc</import>
+
+            <!-- SERVICE: SNOW-SYNC/PROPERTY -->
+            <import>${avro-spec-base-dir}/xtype/snow-sync/snow_record_property-event-external/v1/data/snow_record_property_event.avsc</import>
+
+            <!-- SERVICE: SNOW-SYNC/Script Include -->
+            <import>${avro-spec-base-dir}/xtype/snow-sync/snow_record_script_include-event-external/v1/data/snow_record_script_include_event.avsc</import>
+
+            <!-- SERVICE: SNOW-SYNC/UpdateSet sources -->
+            <import>${avro-spec-base-dir}/xtype/snow-sync/snow_record_update_set_source-event-external/v1/data/snow_record_update_set_source_event.avsc</import>
+
+            <!-- SERVICE: SNOW-SYNC/Change request and task -->
+            <import>${avro-spec-base-dir}/xtype/snow-sync/snow_record_change_request-event-external/v1/data/snow_record_change_request_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/snow-sync/snow_record_change_task-event-external/v1/data/snow_record_change_task_event.avsc</import>
+
+            <!-- SERVICE: INGESTION/RAW-SNOW-RECORD -->
+            <import>${avro-spec-base-dir}/xtype/ingestion/raw_snow_record-event-internal/v1/data/raw_snow_record_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/ingestion/raw_snow_record-event-internal/v1/data/raw_snow_record_deletion_event.avsc</import>
+
+            <!-- SERVICE: INGESTION/SNOW-RECORD-HEADER -->
+            <import>${avro-spec-base-dir}/xtype/ingestion/snow_record_header-event-internal/v1/data/request_logical_group_creation_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/ingestion/snow_record_header-event-internal/v1/data/header_upload_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/ingestion/snow_record_header-event-internal/v1/data/start_diffing_process_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/ingestion/snow_record_header-event-internal/v1/data/request_logical_group_deletion_event.avsc</import>
+
+            <!-- SERVICE: INGESTION/SNOW-DATA -->
+            <import>${avro-spec-base-dir}/xtype/ingestion/snow_data-event-internal/v1/data/data_prepared_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/ingestion/snow_data-event-internal/v1/data/data_upload_cancelled_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/ingestion/snow_data-event-internal/v1/data/data_upload_completed_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/ingestion/snow_data-event-internal/v1/data/data_upload_failed_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/ingestion/snow_data-event-internal/v1/data/data_uploaded_event.avsc</import>
+
+            <!-- DOMAIN: XUS -->
+            <import>${avro-spec-base-dir}/xtype/xus/v1/data/xus_recalculation_requested_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/xus/v1/data/xus_refresh_requested_event.avsc</import>
+
+            <!-- DOMAIN: XUS-LEGACY -->
+            <import>${avro-spec-base-dir}/xtype/xus-legacy/v1/data/xus_deletion_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/xus-legacy/v1/data/xus_recalculation_event.avsc</import>
+
+            <!-- DOMAIN: DEPLOYMENT HEADERS -->
+            <import>${avro-spec-base-dir}/xtype/deployment/state/common/v1/other_problem.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/common/v1/pending_approval.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/common/v1/preview_problem.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/common/v1/release_header.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/common/v1/release_execution_header.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/common/v1/release_package_header.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/common/v1/task_execution_header.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/common/v1/workflow_execution_header.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/common/v1/xus_header.avsc</import>
+            <!-- DOMAIN: DEPLOYMENT TYPES -->
+            <import>${avro-spec-base-dir}/xtype/deployment/state/release-execution-event-external/v1/release_execution_blocked.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/release-execution-event-external/v1/release_execution_failed.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/release-execution-event-external/v1/release_execution_finished_ok_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/release-package-deployment-event-external/v1/release_package_deployment_blocked.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/release-package-deployment-event-external/v1/release_package_deployment_failed.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/release-package-deployment-event-external/v1/release_package_deployment_finished_ok_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/release-package-deployment-event-external/v1/release_package_deployment_started_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/update-set-deployment-event-external/v1/update_set_deployment_blocked.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/update-set-deployment-event-external/v1/update_set_deployment_failed.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/update-set-deployment-event-external/v1/update_set_deployment_finished_ok_event.avsc</import>
+            <!-- DOMAIN: DEPLOYMENT TYPES V2 -->
+            <import>${avro-spec-base-dir}/xtype/deployment/state/common/v2/xus_header.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/common/v2/update_set_header.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/update-set-deployment-event-external/v2/update_set_deployment_blocked.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/update-set-deployment-event-external/v2/update_set_deployment_failed.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/state/update-set-deployment-event-external/v2/update_set_deployment_finished_ok_event.avsc</import>
+
+            <import>${avro-spec-base-dir}/xtype/deployment/package-event-external/v1/data/package_content_type.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/package-event-external/v1/data/package_content_update_set.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/package-event-external/v1/data/package_content_record_data.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/package-event-external/v1/data/package_content_record.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/package-event-external/v1/data/package_content_application.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/package-event-external/v1/data/package_content_execute_script.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/package-event-external/v1/data/package_content_upload_xml.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/package-event-external/v1/data/package_content_item.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/package-event-external/v1/data/package_updated_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/deployment/package-event-external/v1/data/package_created_event.avsc</import>
+
+            <!-- NOTIFICATION -->
+            <import>${avro-spec-base-dir}/xtype/notifications/notification/common/v1/mail_notification.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/notifications/notification/common/v1/msteams_notification.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/notifications/notification/common/v1/slack_notification.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/notifications/notification/event-external/v1/notification_created.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/notifications/notification/common/v1/mail_notification_v1.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/notifications/notification/common/v1/msteams_notification_v1.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/notifications/notification/common/v1/slack_notification_v1.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/notifications/notification/event-external/v1/notification_created_v1.avsc</import>
+
+            <!-- DOMAIN: XAPP-LEGACY -->
+            <import>${avro-spec-base-dir}/xtype/xapp-legacy/v1/data/xapp_recalculation_event.avsc</import>
+            <import>${avro-spec-base-dir}/xtype/xapp-legacy/v1/data/xapp_full_recalculation_event.avsc</import>
+
+            <!-- DOMAIN: ENVIRONMENT -->
+            <import>${avro-spec-base-dir}/xtype/environment/event-external/v1/data/customer_environment_updated_event.avsc</import>
+          </imports>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>schema</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
