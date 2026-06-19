@@ -1,6 +1,0 @@
-{
-  "namespace": "xtype.ingestion.snow_record_header.event.internal.v1.data",
-  "type": "record",
-  "name": "RequestLogicalGroupDeletionEventV1",
-  "fields": []
-}

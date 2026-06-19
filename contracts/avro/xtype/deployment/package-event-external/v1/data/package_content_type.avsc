@@ -1,7 +1,0 @@
-{
-  "namespace": "xtype.deployment.package.event.external.v1.data",
-  "type": "enum",
-  "name": "PackageContentTypeV1",
-  "doc": "The type of content item in a package",
-  "symbols": ["update_set", "records", "application", "execute_script", "upload_xml"]
-}
