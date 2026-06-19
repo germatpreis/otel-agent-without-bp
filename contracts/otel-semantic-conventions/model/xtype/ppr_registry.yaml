@@ -1,0 +1,85 @@
+groups:
+  - id: registry.xtype.ppr
+    type: attribute_group
+    stability: stable
+    display_name: Preview Problem Resolution Attributes
+    brief: 'This document defines semantic convention attributes related to the `Preview Problem Resolution` domain'
+    attributes:
+      - id: xtype.ppr.request.state
+        type: string
+        stability: stable
+        brief: >
+          The state of the preview problem resolution request.
+        examples: ['sent']
+      - id: xtype.ppr.request.retries_count
+        type: int
+        stability: stable
+        brief: >
+          The number of retries attempted for the preview problem resolution request.
+        examples: [2]
+      - id: xtype.ppr.request.target_instance_id
+        type: string
+        stability: stable
+        brief: >
+          The SN instance ID that is the target of the preview problem resolution.
+        examples: ['9d2427b2dbf47b0052cec5970596190b']
+      - id: xtype.ppr.problems.total
+        type: int
+        stability: stable
+        brief: >
+          The total number of preview problems found for the resolution request.
+        examples: [5]
+      - id: xtype.ppr.problems.resolvable
+        type: int
+        stability: stable
+        brief: >
+          The number of preview problems that could be resolved automatically.
+        examples: [3]
+      - id: xtype.ppr.problems.unresolvable
+        type: int
+        stability: stable
+        brief: >
+          The number of preview problems that could not be resolved automatically.
+        examples: [2]
+      - id: xtype.ppr.problem.sys_id
+        type: string
+        stability: stable
+        brief: >
+          The SN sys_id of the preview problem.
+        examples: ['9d2427b2dbf47b0052cec5970596190b']
+      - id: xtype.ppr.problem.resolution_strategy
+        type:
+          members:
+            - id: none
+              value: none
+              stability: stable
+            - id: LocalUpdateNewer
+              value: LocalUpdateNewer
+              stability: stable
+            - id: MissingStuff
+              value: MissingStuff
+              stability: stable
+            - id: Manual
+              value: Manual
+              stability: stable
+        stability: stable
+        brief: >
+          The resolution strategy applied to the preview problem.
+        examples: ['LocalUpdateNewer']
+      - id: xtype.ppr.problem.resolution_hint
+        type:
+          members:
+            - id: none
+              value: none
+              stability: stable
+            - id: ignored
+              value: ignored
+              stability: stable
+            - id: skipped
+              value: skipped
+              stability: stable
+        stability: stable
+        brief: >
+          The resolution hint applied to the preview problem. `ignored` means the remote change is accepted,
+          `skipped` means the remote change is skipped.
+        examples: ['ignored']

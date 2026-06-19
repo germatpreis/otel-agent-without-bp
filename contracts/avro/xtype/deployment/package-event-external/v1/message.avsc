@@ -1,0 +1,18 @@
+{
+  "namespace": "xtype.deployment.package.event.external.v1",
+  "type": "record",
+  "name": "MessageV1",
+  "fields": [
+    {
+      "name": "base",
+      "type": "xtype.common.Base"
+    },
+    {
+      "name": "payload",
+      "type": [
+        "xtype.deployment.package.event.external.v1.data.PackageUpdatedEventV1",
+        "xtype.deployment.package.event.external.v1.data.PackageCreatedEventV1"
+      ]
+    }
+  ]
+}

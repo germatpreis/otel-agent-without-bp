@@ -1,0 +1,37 @@
+groups:
+  - id: registry.xtype.release
+    type: attribute_group
+    stability: stable
+    display_name: Release Attributes
+    brief: 'This document defines semantic convention attributes related to the `Release` domain'
+    attributes:
+      - id: xtype.release.uid
+        type: string
+        stability: stable
+        brief: >
+          Identifies a release uniquely.
+        examples: ['dfd6a6e9-6abb-4aa1-8ab7-522801bee3ab']
+      - id: xtype.release.name
+        type: string
+        stability: stable
+        brief: >
+          The name of the release.
+        examples: ['alvl pack 6877']
+      - id: xtype.release.state
+        type: string
+        stability: stable
+        brief: >
+          The state of the release.
+        examples: ['IN_FLIGHT_NOK']
+      - id: xtype.release.source_instance
+        type: string
+        stability: stable
+        brief: >
+          The SN instance that is considered the source for this release.
+        examples: ['9d2427b2dbf47b0052cec5970596190b']
+      - id: xtype.release.target_instance
+        type: string
+        stability: stable
+        brief: >
+          The SN instance that is considered the target for this release.
+        examples: ['9d2427b2dbf47b0052cec5970596190b']

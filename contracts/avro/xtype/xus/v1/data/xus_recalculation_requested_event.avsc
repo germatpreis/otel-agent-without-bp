@@ -1,0 +1,18 @@
+{
+  "namespace": "xtype.xus.event.external.v1.data",
+  "type": "record",
+  "name": "XusRecalculationRequestedEventV1",
+  "doc": "This payload can be sent to force recalculation of all XUS for a given targetSnowCompanyId.",
+  "fields": [
+    {
+      "name": "targetSnowCompanyId",
+      "type": "string",
+      "doc": "The customer we want to run the re-calculation for."
+    },
+    {
+      "name": "reason",
+      "type": "string",
+      "doc": "A readable reason why we need to run recalculation. This is meant for documentation purposes."
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "namespace": "xtype.ingestion.snow_data.event.internal.v1.data",
+  "type": "record",
+  "name": "DataUploadCompletedEventV1",
+  "fields": []
+}

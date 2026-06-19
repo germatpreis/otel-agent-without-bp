@@ -1,0 +1,22 @@
+{
+  "namespace": "xtype.fs_xus.event.external.v1",
+  "type": "record",
+  "name": "MessageV1",
+  "fields": [
+    {
+      "name": "base",
+      "type": "xtype.common.Base"
+    },
+    {
+      "name": "user",
+      "type": "xtype.common.User"
+    },
+    {
+      "name": "payload",
+      "type": [
+        "xtype.xus.event.external.v1.data.XusRecalculationRequestedEventV1",
+        "xtype.xus.event.external.v1.data.XusRefreshRequestedEventV1"
+      ]
+    }
+  ]
+}

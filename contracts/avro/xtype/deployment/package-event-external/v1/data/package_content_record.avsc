@@ -1,0 +1,19 @@
+{
+  "namespace": "xtype.deployment.package.event.external.v1.data",
+  "type": "record",
+  "name": "PackageContentRecordV1",
+  "doc": "Records content",
+  "fields": [
+    { "name": "name", "type": ["null", "string"], "default": null, "doc": "Name of the record set" },
+    { "name": "written_to_update_set", "type": ["null", "boolean"], "default": null, "doc": "Whether written to update set" },
+    {
+      "name": "data",
+      "type": ["null", {
+        "type": "array",
+        "items": "xtype.deployment.package.event.external.v1.data.PackageContentRecordDataV1"
+      }],
+      "default": null,
+      "doc": "Array of record data items"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "namespace": "xtype.ingestion.snow_data.event.internal.v1.data",
+  "type": "record",
+  "name": "DataUploadCancelledEventV1",
+  "fields": [
+    {
+      "name": "cancelType",
+      "type": {
+        "type": "enum",
+        "name": "CancelType",
+        "symbols": [
+          "USER_CANCELLED"
+        ],
+        "doc": "The type of cancellation (currently only 'userCancelled' is supported)."
+      },
+      "doc": "The type of cancellation reason."
+    },
+    {
+      "name": "reason",
+      "type": "string",
+      "doc": "A readable reason why this upload should be cancelled (e.g., Compare cancelled by the user)."
+    }
+  ]
+}

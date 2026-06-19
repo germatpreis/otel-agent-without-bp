@@ -1,0 +1,22 @@
+{
+  "namespace": "xtype.snow_sync.snow_record_cloning.event.external.v1",
+  "type": "record",
+  "name": "MessageV1",
+  "fields": [
+    {
+      "name": "base",
+      "type": "xtype.common.Base"
+    },
+    {
+      "name": "snowBase",
+      "type": "xtype.snow_sync.common.SnowBase"
+    },
+    {
+      "name": "payload",
+      "type": [
+        "xtype.snow_sync.snow_record_cloning.event.external.v1.data.SnowRecordCloningEventV1",
+        "xtype.snow_sync.common.SnowDeletionEventV1"
+      ]
+    }
+  ]
+}

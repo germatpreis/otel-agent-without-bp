@@ -1,0 +1,32 @@
+{
+  "namespace": "xtype.ingestion.raw_snow_record.event.internal.v1",
+  "type": "record",
+  "name": "MessageV1",
+  "fields": [
+    {
+      "name": "base",
+      "type": "xtype.common.Base"
+    },
+    {
+      "name": "snowTable",
+      "type": "string",
+      "doc": "The original name of the table in the service now."
+    },
+    {
+      "name": "logicalGroupId",
+      "type": [ "null", "long" ],
+      "doc": "The unique id of the logical group that was used to upload this record. Usually only provided for RawSnowRecordEventV1 items.",
+      "default": null
+    },
+    {
+      "name": "items",
+      "type": {
+        "type": "array",
+        "items": [
+          "xtype.ingestion.raw_snow_record.event.internal.v1.data.RawSnowRecordEventV1",
+          "xtype.ingestion.raw_snow_record.event.internal.v1.data.RawSnowRecordDeletionEventV1"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "namespace": "xtype.deployment.state.event.external.v1",
+  "type": "record",
+  "name": "PendingApprovalV1",
+  "fields": []
+}

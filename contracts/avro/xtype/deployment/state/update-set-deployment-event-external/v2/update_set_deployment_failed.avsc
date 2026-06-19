@@ -1,0 +1,49 @@
+{
+  "namespace": "xtype.deployment.state.event.external.v2",
+  "type": "record",
+  "name": "UpdateSetDeploymentFailedV2",
+  "fields": [
+    {
+      "name": "workflow_execution",
+      "type": "xtype.deployment.state.event.external.v1.WorkflowExecutionHeaderV1"
+    },
+    {
+      "name": "task_execution",
+      "type": ["null", "xtype.deployment.state.event.external.v1.TaskExecutionHeaderV1"],
+      "default": null
+    },
+    {
+      "name": "timestamp",
+      "type": "long"
+    },
+    {
+      "name": "xus",
+      "type": "xtype.deployment.state.event.external.v2.XusHeaderV2"
+    },
+    {
+      "name": "otherProblem",
+      "type": "xtype.deployment.state.event.external.v1.OtherProblemV1"
+    },
+    {
+      "name": "ended_at",
+      "type": ["null", "long"],
+      "default": null
+    },
+    {
+      "name": "failed_atf",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "failed_code_scan",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "update_set",
+      "type": ["null", "xtype.deployment.state.event.external.v2.UpdateSetHeaderV2"],
+      "default": null,
+      "doc": "Header identifying the individual update set being deployed"
+    }
+  ]
+}

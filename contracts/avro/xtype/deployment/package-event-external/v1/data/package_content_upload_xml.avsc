@@ -1,0 +1,16 @@
+{
+  "namespace": "xtype.deployment.package.event.external.v1.data",
+  "type": "record",
+  "name": "PackageContentUploadXmlV1",
+  "doc": "Upload XML content",
+  "fields": [
+    { "name": "name", "type": "string", "doc": "Name of upload" },
+    { "name": "xml", "type": "string", "doc": "XML content" },
+    { "name": "table_id", "type": "string", "doc": "Target table ID" },
+    { "name": "table_name", "type": "string", "doc": "Table name" },
+    { "name": "scope_id", "type": "string", "doc": "Scope ID" },
+    { "name": "file_size", "type": "long", "doc": "File size in bytes" },
+    { "name": "number_of_records", "type": "long", "doc": "Number of records in XML" },
+    { "name": "unload_date", "type": "string", "doc": "Date when unloaded" }
+  ]
+}

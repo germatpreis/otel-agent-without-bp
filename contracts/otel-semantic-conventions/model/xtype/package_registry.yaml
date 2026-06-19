@@ -1,0 +1,42 @@
+groups:
+  - id: registry.xtype.package
+    type: attribute_group
+    stability: stable
+    display_name: Package Attributes
+    brief: 'This document defines semantic convention attributes related to the `Package` domain'
+    attributes:
+      - id: xtype.package.id
+        type: string
+        stability: stable
+        brief: >
+          The UUID of the package.
+        examples: ['cce09dc6-4938-4739-a36f-9a1c9229ac8c']
+      - id: xtype.package.name
+        type: string
+        stability: stable
+        brief: >
+          The name of the package.
+        examples: ['HarmfulBidetInasmuchAltruistic - Package SLA smoke test']
+      - id: xtype.package.state
+        type: string
+        stability: stable
+        brief: >
+          The state of the package.
+        examples: ['IN_DEFINITION']
+      - id: xtype.package.is_archived
+        type: boolean
+        stability: stable
+        brief: >
+          Whether the package is archived.
+      - id: xtype.package.created_in_instance
+        type: string
+        stability: stable
+        brief: >
+          The SN instance in which the package was created.
+        examples: ['9d2427b2dbf47b0052cec5970596190b']
+      - id: xtype.package.current_instance
+        type: string
+        stability: stable
+        brief: >
+          The SN instance on which the package currently resides.
+        examples: ['9d2427b2dbf47b0052cec5970596190b']

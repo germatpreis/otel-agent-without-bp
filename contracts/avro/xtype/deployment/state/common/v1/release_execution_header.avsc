@@ -1,0 +1,11 @@
+{
+  "namespace": "xtype.deployment.state.event.external.v1",
+  "type": "record",
+  "name": "ReleaseExecutionHeaderV1",
+  "fields": [
+    {
+      "name": "release_execution_id",
+      "type": "string"
+    }
+  ]
+}

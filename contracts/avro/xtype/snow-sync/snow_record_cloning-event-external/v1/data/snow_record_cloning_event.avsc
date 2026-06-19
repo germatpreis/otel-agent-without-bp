@@ -1,0 +1,77 @@
+{
+  "namespace": "xtype.snow_sync.snow_record_cloning.event.external.v1.data",
+  "type": "record",
+  "name": "SnowRecordCloningEventV1",
+  "fields": [
+    {
+      "name": "changeNumber",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Related change request number, ie. 'CHG5088988'"
+    },
+    {
+      "name": "stage",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Used during an active clone process to show in which clone stage an active clone is ie. 'Completed'"
+    },
+    {
+      "name": "requestID",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "?"
+    },
+    {
+      "name": "scheduledTm",
+      "type": [ "null", "long" ],
+      "default": null,
+      "doc": "When the clone is supposed to start, ie. '2024-03-31 07:00:00'"
+    },
+    {
+      "name": "startedTm",
+      "type": [ "null", "long" ],
+      "default": null,
+      "doc": "When the cloning process has started, this field will be set, ie. '2023-12-23 12:00:37'"
+    },
+    {
+      "name": "estimatedCloneDuration",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Estimation how long the clone will take, duration in ISO_8601, ie. 3H30M5S\""
+    },
+    {
+      "name": "targetInstance",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The target instance of the clone, ie. 'f9697f021b8fbd10639286a7624bcb9c'"
+    },
+    {
+      "name": "sourceInstance",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The source instance of the clone, ie. 'f9697f021b8fbd10639286a7624bcb9c'"
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "doc": "The state of the clone. Following states are supported 'Requested', 'Scheduled', 'Active', 'Completed', 'Error', 'Canceled', 'Hold', 'Rollback'"
+    },
+    {
+      "name": "clonePercentComplete",
+      "type": "string",
+      "doc": "Progress of the clone in percent, ie. 58"
+    },
+    {
+      "name": "duration",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Duration in ISO_8601, ie. 3H30M5S"
+    },
+    {
+      "name": "completedTm",
+      "type": [  "null", "long" ],
+      "default": null,
+      "doc": "Will be set when the clone has completed, '2023-12-23 16:30:34'"
+    }
+  ]
+}

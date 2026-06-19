@@ -1,0 +1,73 @@
+{
+  "namespace": "xtype.snow_sync.snow_record_script_include.event.external.v1.data",
+  "type": "record",
+  "name": "SnowRecordScriptIncludeEventV1",
+  "fields": [
+    {
+      "name": "description",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Provides brief explanation or details about what the script include is used for."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "doc": "The name of the script include."
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "doc": "Activeness of the script include."
+    },
+    {
+      "name": "scriptHash",
+      "type": "string",
+      "doc": "The hash value of the script."
+    },
+    {
+      "name": "taskConfig",
+      "type": {
+        "name": "taskConfig",
+        "type": "record",
+        "doc": "Configs relevant for script include processing within a workflow.",
+        "fields": [
+          {
+            "name": "stopOnFinishedNotOk",
+            "type": "boolean",
+            "doc": "Stop processing after this task finished not ok."
+          },
+          {
+            "name": "isAsync",
+            "type": "boolean",
+            "doc": "The script include is processed asynchronous."
+          },
+          {
+            "name": "maxDuration",
+            "type": "int",
+            "doc": "Timeout for an async script include execution."
+          }
+        ]
+      }
+    },
+    {
+      "name": "scriptInfo",
+      "type": {
+        "name": "scriptInfo",
+        "type": "record",
+        "doc": "Details about the script include.",
+        "fields": [
+          {
+            "name": "hasRunFunction",
+            "type": "boolean",
+            "doc": "Script include contains a run function."
+          },
+          {
+            "name": "extendsXtypeCustomTask",
+            "type": "boolean",
+            "doc": "Script include is of type XtypeCustomTask."
+          }
+        ]
+      }
+    }
+  ]
+}

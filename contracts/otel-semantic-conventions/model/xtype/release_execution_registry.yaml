@@ -1,0 +1,25 @@
+groups:
+  - id: registry.xtype.release_execution
+    type: attribute_group
+    stability: stable
+    display_name: Release Execution Attributes
+    brief: 'This document defines semantic convention attributes related to the `Release Execution` domain'
+    attributes:
+      - id: xtype.release.execution.uid
+        type: string
+        stability: stable
+        brief: >
+          Identifies a release execution uniquely.
+        examples: ['dfd6a6e9-6abb-4aa1-8ab7-522801bee3ab']
+      - id: xtype.release.execution.content.release_package_id
+        type: string
+        stability: stable
+        brief: >
+          The UUID of the release package associated with this release execution content.
+        examples: ['cce09dc6-4938-4739-a36f-9a1c9229ac8c']
+      - id: xtype.release.execution.content.workflow_execution_id
+        type: string
+        stability: stable
+        brief: >
+          The UUID of the workflow execution associated with this release execution content.
+        examples: ['cce09dc6-4938-4739-a36f-9a1c9229ac8c']

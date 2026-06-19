@@ -1,0 +1,27 @@
+{
+  "namespace": "xtype.deployment.state.event.external.v1",
+  "type": "record",
+  "name": "TaskExecutionHeaderV1",
+  "fields": [
+    {
+      "name": "task_execution_id",
+      "type": "string"
+    },
+    {
+      "name": "task_type",
+      "type": "string"
+    },
+    {
+      "name": "source_instance",
+      "type": "string"
+    },
+    {
+      "name": "target_instance",
+      "type": "string"
+    },
+    {
+      "name": "state",
+      "type": "string"
+    }
+  ]
+}

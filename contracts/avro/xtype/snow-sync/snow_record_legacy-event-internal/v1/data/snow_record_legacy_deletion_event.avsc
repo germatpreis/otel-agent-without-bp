@@ -1,0 +1,17 @@
+{
+  "namespace": "xtype.snow_sync.snow_record_legacy.event.internal.v1.data",
+  "type": "record",
+  "name": "SnowRecordLegacyDeletionEventV1",
+  "fields": [
+    {
+      "name": "uid",
+      "type": "string",
+      "doc": "Unique ID of the record."
+    },
+    {
+      "name": "deletionTm",
+      "type": "long",
+      "doc": "When record was deleted."
+    }
+  ]
+}

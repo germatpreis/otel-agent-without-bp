@@ -1,0 +1,17 @@
+{
+  "namespace": "xtype.ingestion.raw_snow_record.event.internal.v1.data",
+  "type": "record",
+  "name": "RawSnowRecordDeletionEventV1",
+  "fields": [
+    {
+      "name": "uid",
+      "type": "string",
+      "doc": "Unique ID of the record."
+    },
+    {
+      "name": "sysId",
+      "type": "string",
+      "doc": "The unique id of the record in Service Now. Uniqueness in only guaranteed within a single instance, thus not globally unique."
+    }
+  ]
+}

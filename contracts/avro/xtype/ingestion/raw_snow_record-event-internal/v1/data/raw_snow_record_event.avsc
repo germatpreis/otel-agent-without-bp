@@ -1,0 +1,58 @@
+{
+  "namespace": "xtype.ingestion.raw_snow_record.event.internal.v1.data",
+  "type": "record",
+  "name": "RawSnowRecordEventV1",
+  "fields": [
+    {
+      "name": "uid",
+      "type": "string",
+      "doc": "Unique ID of the record."
+    },
+    {
+      "name": "sysId",
+      "type": "string",
+      "doc": "The unique id of the record in Service Now. Uniqueness in only guaranteed within a single instance, thus not globally unique."
+    },
+    {
+      "name": "md5",
+      "type": "string",
+      "doc": "The md5 hash of the content in field 'payload'."
+    },
+    {
+      "name": "sysCreatedOn",
+      "type": [ "null", "long" ],
+      "doc": "The creation time in ServiceNow (TZ is implicitly in UTC).",
+      "default": null
+    },
+    {
+      "name": "sysUpdatedOn",
+      "type": [ "null", "long" ],
+      "default": null,
+      "doc": "the last update timestamp in ServiceNow (TZ is implicitly in UTC)."
+    },
+    {
+      "name": "payload",
+      "type": "string",
+      "doc": "The SN record, serialized as JSON."
+    },
+    {
+      "name": "partitionHint",
+      "type": [ "null", "string" ],
+      "default": null,
+      "doc": "The partition hint, serialized as JSON. Partition hints are usually only sent for records of bigger tables."
+    },
+    {
+      "name": "recordState",
+      "type": [
+        "null",
+        {
+          "type": "enum",
+          "name": "RecordState",
+          "symbols": ["NEW", "MOD", "UNC"]
+        }
+      ],
+      "default": null,
+      "doc": "The computed sync state of the snow record at the time of the message creation. Deleted events are handled by RawSnowRecordDeletionEvent."
+    }
+  ]
+}

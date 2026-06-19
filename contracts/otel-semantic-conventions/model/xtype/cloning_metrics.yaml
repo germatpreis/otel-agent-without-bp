@@ -1,0 +1,11 @@
+groups:
+  - id: metric.xtype.cloning.list_clone_plans
+    type: metric
+    metric_name: xtype.cloning.list_clone_plans
+    instrument: counter
+    brief: >
+      Counts how often the 'clone plan overview' has been called.
+    unit: "#"
+    stability: stable
+    attributes: []
+    

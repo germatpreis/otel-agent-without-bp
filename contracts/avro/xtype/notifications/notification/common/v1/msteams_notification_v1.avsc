@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "name": "MSTeamsNotificationV1",
+  "namespace": "xtype.notifications.notification.event.external.v1",
+  "fields": [
+    {
+      "name": "webhook",
+      "type": "string"
+    },
+    {
+      "name": "message",
+      "type": "string"
+    }
+  ]
+}

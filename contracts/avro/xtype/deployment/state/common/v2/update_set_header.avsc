@@ -1,0 +1,12 @@
+{
+  "namespace": "xtype.deployment.state.event.external.v2",
+  "type": "record",
+  "name": "UpdateSetHeaderV2",
+  "fields": [
+    {
+      "name": "source_sys_id",
+      "type": "string",
+      "doc": "ServiceNow sys_id of the update set being deployed from the source instance"
+    }
+  ]
+}

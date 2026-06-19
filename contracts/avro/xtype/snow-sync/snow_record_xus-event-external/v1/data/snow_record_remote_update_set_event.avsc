@@ -1,0 +1,48 @@
+{
+  "namespace": "xtype.snow_sync.snow_record_xus.event.external.v1.data",
+  "type": "record",
+  "name": "SnowRecordRemoteUpdateSetEventV1",
+  "fields": [
+    {
+      "name": "usRusBase",
+      "type": "xtype.snow_sync.snow_record_xus.event.external.v1.data.UsRusBaseV1",
+      "doc": "Fields common to an UpdateSet and RemoteUpdateSet."
+    },
+    {
+      "name": "remoteSysId",
+      "type": ["null", "string"],
+      "doc": "An optional reference to the UpdateSet on the source instance.",
+      "default": null
+    },
+    {
+      "name": "updateSource",
+      "type": ["null", "string"],
+      "doc": "An optional reference to the source instance.",
+      "default": null
+    },
+    {
+      "name": "updateSet",
+      "type": ["null", "string"],
+      "doc": "An optional reference to the UpdateSet on the same instance.",
+      "default": null
+    },
+    {
+      "name": "parent",
+      "type": ["null", "string"],
+      "doc": "An optional reference to the parent.",
+      "default": null
+    },
+    {
+      "name": "remoteBaseUpdateSet",
+      "type": ["null", "string"],
+      "doc": "An optional reference to the top level UpdateSet on the source instance.",
+      "default": null
+    },
+    {
+      "name": "remoteParent",
+      "type": ["null", "string"],
+      "doc": "An optional reference to the parent UpdateSet on the source instance.",
+      "default": null
+    }
+  ]
+}

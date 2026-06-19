@@ -1,0 +1,33 @@
+{
+  "namespace": "xtype.deployment.state.event.external.v1",
+  "type": "record",
+  "name": "UpdateSetDeploymentBlockedV1",
+  "fields": [
+    {
+      "name": "workflow_execution",
+      "type": "xtype.deployment.state.event.external.v1.WorkflowExecutionHeaderV1"
+    },
+    {
+      "name": "task_execution",
+      "type": "xtype.deployment.state.event.external.v1.TaskExecutionHeaderV1"
+    },
+    {
+      "name": "timestamp",
+      "type": "long"
+    },
+    {
+      "name": "xus",
+      "type": "xtype.deployment.state.event.external.v1.XusHeaderV1"
+    },
+    {
+      "name": "pendingApproval",
+      "type": ["null", "xtype.deployment.state.event.external.v1.PendingApprovalV1"],
+      "default": null
+    },
+    {
+      "name": "previewProblem",
+      "type": ["null", "xtype.deployment.state.event.external.v1.PreviewProblemV1"],
+      "default": null
+    }
+  ]
+}

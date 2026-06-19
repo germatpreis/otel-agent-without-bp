@@ -1,0 +1,58 @@
+{
+  "namespace": "xtype.deployment.package.event.external.v1.data",
+  "type": "record",
+  "name": "PackageContentItemV1",
+  "doc": "A content item within a release package",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "doc": "Unique identifier of the content item"
+    },
+    {
+      "name": "type",
+      "type": "xtype.deployment.package.event.external.v1.data.PackageContentTypeV1",
+      "doc": "The type of content item"
+    },
+    {
+      "name": "order",
+      "type": "long",
+      "doc": "Order of the content item in the package"
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "doc": "State of the content item"
+    },
+    {
+      "name": "update_set",
+      "type": ["null", "xtype.deployment.package.event.external.v1.data.PackageContentUpdateSetV1"],
+      "default": null,
+      "doc": "Update set content (when type is update_set)"
+    },
+    {
+      "name": "records",
+      "type": ["null", "xtype.deployment.package.event.external.v1.data.PackageContentRecordV1"],
+      "default": null,
+      "doc": "Records content (when type is records)"
+    },
+    {
+      "name": "application",
+      "type": ["null", "xtype.deployment.package.event.external.v1.data.PackageContentApplicationV1"],
+      "default": null,
+      "doc": "Application content (when type is application)"
+    },
+    {
+      "name": "execute_script",
+      "type": ["null", "xtype.deployment.package.event.external.v1.data.PackageContentExecuteScriptV1"],
+      "default": null,
+      "doc": "Execute script content (when type is execute_script)"
+    },
+    {
+      "name": "upload_xml",
+      "type": ["null", "xtype.deployment.package.event.external.v1.data.PackageContentUploadXmlV1"],
+      "default": null,
+      "doc": "Upload XML content (when type is upload_xml)"
+    }
+  ]
+}

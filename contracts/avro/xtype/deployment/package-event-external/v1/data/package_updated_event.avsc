@@ -1,0 +1,93 @@
+{
+  "namespace": "xtype.deployment.package.event.external.v1.data",
+  "type": "record",
+  "name": "PackageUpdatedEventV1",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "doc": "The id of the package"
+    },
+    {
+      "name": "name",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The name of the package"
+    },
+    {
+      "name": "version",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The version of the package"
+    },
+    {
+      "name": "state",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The state of the package"
+    },
+    {
+      "name": "created_in_instance",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The instance the package was created in"
+    },
+    {
+      "name": "current_instance",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The instance the package was updated in"
+    },
+    {
+      "name": "is_archived",
+      "type": "boolean",
+      "default": false,
+      "doc": "Indication if the package is archived"
+    },
+    {
+      "name": "created_at",
+      "type": ["null", "long"],
+      "default": null,
+      "doc": "Timestamp when package was created"
+    },
+    {
+      "name": "created_by_display_name",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Display name of the user who created the package"
+    },
+    {
+      "name": "created_by_technical_name",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Technical name of the user who created the package"
+    },
+    {
+      "name": "updated_by_display_name",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The name of the user"
+    },
+    {
+      "name": "updated_by_technical_name",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The technical name of the user"
+    },
+    {
+      "name": "updated_at",
+      "type": ["null", "long"],
+      "default": null,
+      "doc": "Timestamp when package was updated"
+    },
+    {
+      "name": "content",
+      "type": ["null", {
+        "type": "array",
+        "items": "xtype.deployment.package.event.external.v1.data.PackageContentItemV1"
+      }],
+      "default": null,
+      "doc": "The content items of the package"
+    }
+  ]
+}

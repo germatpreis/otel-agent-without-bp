@@ -1,0 +1,13 @@
+{
+  "namespace": "xtype.xapp_legacy.v1.data",
+  "type": "record",
+  "name": "XappRecalculationEventV1",
+  "doc": "This payload can be sent to trigger recalculation of XApp data for a given snowCompanyId and table.",
+  "fields": [
+    {
+      "name": "table",
+      "type": "string",
+      "doc": "The table that triggered the recalculation event."
+    }
+  ]
+}

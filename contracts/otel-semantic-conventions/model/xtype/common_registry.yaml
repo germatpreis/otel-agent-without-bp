@@ -1,0 +1,29 @@
+groups:
+  - id: registry.xtype
+    type: attribute_group
+    stability: stable
+    display_name: Common Attributes
+    brief: 'This document defines semantic convention attributes that are relevant for ALL domains'
+    attributes:
+      - id: xtype.snow_company_id
+        type: string
+        stability: stable
+        brief: The UUID of a customer.
+        examples: ['b8772d31-0ebb-490c-8a26-fd85c3e5e9f9']
+      - id: xtype.snow_instance_id
+        type: string
+        stability: stable
+        brief: The unique id of a SN instance.
+        examples: ['9d2427b2dbf47b0052cec5970596190b']
+      - id: xtype.app_version
+        type: string
+        stability: stable
+        brief: The version of XType as it is installed on a SN instance.
+        examples: ['2.2.2']
+      - id: xtype.story_mode
+        type: boolean
+        stability: stable
+        brief: >
+          Marks a log line as human-readable for first level support. When true,
+          the log message is written in plain language and is meaningful without
+          deep technical context.

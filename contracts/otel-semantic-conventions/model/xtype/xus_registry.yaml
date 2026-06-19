@@ -1,0 +1,27 @@
+groups:
+  - id: registry.xtype.xus
+    type: attribute_group
+    stability: stable
+    display_name: XUS Attributes
+    brief: 'This document defines semantic convention attributes related to the `XUS` domain'
+    attributes:
+      - id: xtype.xus.uid
+        type: string
+        stability: stable
+        brief: >
+          Identifies a `xtype_update_set` uniquely.
+        examples: ['b8772d31-0ebb-490c-8a26-fd85c3e5e9f9-b95eaadcdb375918b847ac44d496194b-6e08fc371b450a108917415fad4bcbb7']
+      - id: xtype.xus.name
+        type: string
+        stability: stable
+        brief: >
+          The name of the `xtype_update_set`. By definition this is the name of 
+          the latest `update_set` that the `xtype_update_set` knows of.
+        examples: ['xtype 3.3.0']
+      - id: xtype.xus.moved_via_xtype
+        type: boolean
+        stability: stable
+        brief: >
+          If this `remote_update_set` has been moved via `xtype`. Behind the scenes it is checked if 
+          there are `workflow_executions` that reference this particular `remote_update_set` on the
+          `instance` in question.

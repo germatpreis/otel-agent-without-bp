@@ -1,0 +1,28 @@
+{
+  "namespace": "xtype.snow_sync.snow_record_xus.event.external.v1.data",
+  "type": "record",
+  "name": "UsRusBaseV1",
+  "fields": [
+    {
+      "name": "application",
+      "type": "string",
+      "doc": "The application the US or RUS belongs to."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "doc": "The readable name of the US or RUS. Can be empty string"
+    },
+    {
+      "name": "description",
+      "type": ["null", "string"],
+      "doc": "A readable description, might be empty.",
+      "default": null
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "doc": "The current state of the US or RUS."
+    }
+  ]
+}

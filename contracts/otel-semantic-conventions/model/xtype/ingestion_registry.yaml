@@ -1,0 +1,93 @@
+groups:
+  - id: registry.xtype.ingestion
+    type: attribute_group
+    stability: stable
+    display_name: Ingestion Attributes
+    brief: 'This document defines semantic convention attributes related to the `Ingestion` domain'
+    attributes:
+      - id: xtype.ingestion.table_id
+        type: string
+        stability: stable
+        brief: >
+          The SN table for which ingestion is being done.
+        examples: ['sys_update_set']
+      - id: xtype.ingestion.logical_group.id
+        type: int
+        stability: stable
+        brief: >
+          Identifies a `logical group` (resync process) uniquely.
+        examples: [100325]
+      - id: xtype.ingestion.snow_record.count
+        type: int
+        stability: stable
+        brief: >
+          Number of `snow-records` related to this span operation
+        examples: [1]
+      - id: xtype.ingestion.forwarder_used
+        type:
+          members:
+            - id: KafkaMixedForwarder
+              value: KafkaMixedForwarder
+              stability: stable
+            - id: KafkaOnlyForwarder
+              value: KafkaOnlyForwarder
+              stability: stable
+            - id: ClassicForwarder
+              value: ClassicForwarder
+              stability: stable
+        stability: stable
+        brief: >
+          Number of `snow-records` related to this span operation
+        examples: ['KafkaMixedForwarder']
+      - id: xtype.ingestion.source
+        type:
+          members:
+            - id: REST
+              value: REST
+              stability: stable
+            - id: RESYNC
+              value: RESYNC
+              stability: stable
+        stability: stable
+        brief: >
+          The original source of the ingestion data / operations. This is currently used for
+          tracking where snow-records deletes come from. They are either triggered
+          by the SN Agent (`REST`) or during an internal resync process (`RESYNC`)
+      - id: xtype.ingestion.snow_record.new.count
+        type: int
+        stability: stable
+        brief: >
+          The number of 'new' `snow-records`.
+      - id: xtype.ingestion.snow_record.mod.count
+        type: int
+        stability: stable
+        brief: >
+          The number of 'modified' `snow-records`.
+      - id: xtype.ingestion.snow_record.unc.count
+        type: int
+        stability: stable
+        brief: >
+          The number of 'unchanged' `snow-records`.
+      - id: xtype.ingestion.snow_record_header.count
+        type: int
+        stability: stable
+        brief: >
+          The number of `snow_record_headers` that are delivered in a HTTP request.
+      - id: xtype.ingestion.data.workflow_id
+        type: string
+        stability: stable
+        brief: >
+          The UUID of the workflow orchestrating the sync. For comparisons this is the UUID of the comparison definition.
+        examples: [94393884-84de-4d65-af8e-c5b97a814576]
+      - id: xtype.ingestion.data.execution_id
+        type: string
+        stability: stable
+        brief: >
+          The UUID of the workflow execution (runID). For comparisons this is the UUID of the comparison execution.
+        examples: [94393884-84de-4d65-af8e-c5b97a814576]
+      - id: xtype.ingestion.data.upload_id
+        type: string
+        stability: stable
+        brief: >
+          The UUID of an upload belonging to the workflow execution. For comparisons this is the UUID of an upload task of the comparison execution.
+        examples: [94393884-84de-4d65-af8e-c5b97a814576]

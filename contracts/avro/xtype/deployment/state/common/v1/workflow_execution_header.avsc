@@ -1,0 +1,11 @@
+{
+  "namespace": "xtype.deployment.state.event.external.v1",
+  "type": "record",
+  "name": "WorkflowExecutionHeaderV1",
+  "fields": [
+    {
+      "name": "workflow_execution_id",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "namespace": "xtype.snow_sync.snow_record_change_request.event.external.v1.data",
+  "type": "record",
+  "name": "SnowRecordChangeRequestEventV1",
+  "fields": [
+    {
+      "name": "active",
+      "type": "boolean",
+      "default": true,
+      "doc": "If active or not"
+    },
+    {
+      "name": "number",
+      "type": ["null", "string"],
+      "doc": "Human-readable change request number (e.g., CHG0032908)."
+    },
+    {
+      "name": "shortDescription",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Short description or title of the change request."
+    },
+    {
+      "name": "type",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Type of the change request (e.g., Normal, Standard, Emergency)."
+    },
+    {
+      "name": "approval",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Approval state of the change request (e.g., 'not requested', 'approved')."
+    },
+    {
+      "name": "description",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Full description or details about the change request."
+    },
+    {
+      "name": "state",
+      "type": "int",
+      "default": 0,
+      "doc": "Current state code of the change request."
+    },
+    {
+      "name": "startDate",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Planned start date and time for the change implementation."
+    }
+  ]
+}

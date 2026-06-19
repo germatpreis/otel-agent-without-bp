@@ -1,0 +1,60 @@
+{
+  "namespace": "xtype.ingestion.snow_data.event.internal.v1",
+  "type": "record",
+  "name": "MessageV1",
+  "fields": [
+    {
+      "name": "base",
+      "type": "xtype.common.Base"
+    },
+    {
+      "name": "workflowId",
+      "type": "string",
+      "doc": "The UUID of the workflow orchestrating the sync. For comparisons this is the UUID of the comparison definition."
+    },
+    {
+      "name": "executionId",
+      "default": "",
+      "type": "string",
+      "doc": "The UUID of the workflow execution (runID). For comparisons this is the UUID of the comparison execution."
+    },
+    {
+      "name": "uploadId",
+      "type": "string",
+      "doc": "The UUID of an upload belonging to the workflow execution. For comparisons this is the UUID of an upload task of the comparison execution."
+    },
+    {
+      "name": "workflowType",
+      "type": {
+        "type": "enum",
+        "name": "WorkflowType",
+        "symbols": [
+          "COMPARE",
+          "TRANSFER"
+        ],
+        "doc": "The type of the workflow. Indicates how the data is intended to be used."
+      },
+      "default": "COMPARE",
+      "doc": "The type of the workflow (compare or transfer)."
+    },
+    {
+      "name": "productId",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null,
+      "doc": "The xtype product that is sending this message"
+    },
+    {
+      "name": "payload",
+      "type": [
+        "xtype.ingestion.snow_data.event.internal.v1.data.DataUploadedEventV1",
+        "xtype.ingestion.snow_data.event.internal.v1.data.DataPreparedEventV1",
+        "xtype.ingestion.snow_data.event.internal.v1.data.DataUploadCancelledEventV1",
+        "xtype.ingestion.snow_data.event.internal.v1.data.DataUploadFailedEventV1",
+        "xtype.ingestion.snow_data.event.internal.v1.data.DataUploadCompletedEventV1"
+      ]
+    }
+  ]
+}

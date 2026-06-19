@@ -1,0 +1,19 @@
+{
+  "namespace": "xtype.deployment.package.event.external.v1.data",
+  "type": "record",
+  "name": "PackageContentApplicationV1",
+  "doc": "Application content",
+  "fields": [
+    { "name": "name", "type": ["null", "string"], "default": null, "doc": "Application name" },
+    { "name": "app_id", "type": ["null", "string"], "default": null, "doc": "Application ID" },
+    { "name": "sys_id", "type": ["null", "string"], "default": null, "doc": "sysID from ServiceNow" },
+    { "name": "version", "type": ["null", "string"], "default": null, "doc": "Application version" },
+    { "name": "application_display", "type": ["null", "string"], "default": null, "doc": "Display name" },
+    { "name": "load_demo_data", "type": ["null", "string"], "default": null, "doc": "Load demo data flag" },
+    { "name": "is_reinstall_requested", "type": ["null", "boolean"], "default": null, "doc": "Reinstall requested" },
+    { "name": "customization_version", "type": ["null", "string"], "default": null, "doc": "Customization version" },
+    { "name": "subscription", "type": ["null", "string"], "default": null, "doc": "Subscription info" },
+    { "name": "action", "type": ["null", "string"], "default": null, "doc": "Action type" },
+    { "name": "app_type", "type": ["null", "string"], "default": null, "doc": "Application type (scoped, store, plugin)" }
+  ]
+}

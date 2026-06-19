@@ -1,0 +1,49 @@
+groups:
+  - id: registry.xtype.task_execution
+    type: attribute_group
+    stability: stable
+    display_name: Task Execution Attributes
+    brief: 'This document defines semantic convention attributes related to the `Task Execution` domain'
+    attributes:
+      - id: xtype.task.execution.id
+        type: string
+        stability: stable
+        brief: >
+          The UUID of the task execution.
+        examples: ['cce09dc6-4938-4739-a36f-9a1c9229ac8c']
+      - id: xtype.task.execution.workflow_execution.id
+        type: string
+        stability: stable
+        brief: >
+          The UUID of the workflow execution this task execution belongs to.
+        examples: ['cce09dc6-4938-4739-a36f-9a1c9229ac8c']
+      - id: xtype.task.execution.state
+        type: string
+        stability: stable
+        brief: >
+          The state of the task execution.
+        examples: ['FINISHED_OK']
+      - id: xtype.task.execution.task_type
+        type: string
+        stability: stable
+        brief: >
+          The type of the task execution.
+        examples: ['DEPLOY_PACKAGE_CONTENT']
+      - id: xtype.task.execution.input.referenced_workflow_execution.id
+        type: string
+        stability: stable
+        brief: >
+          The UUID of a workflow execution referenced as input to this task execution.
+        examples: ['cce09dc6-4938-4739-a36f-9a1c9229ac8c']
+      - id: xtype.task.execution.input.package_id
+        type: string
+        stability: stable
+        brief: >
+          The UUID of the package provided as input to this task execution.
+        examples: ['cce09dc6-4938-4739-a36f-9a1c9229ac8c']
+      - id: xtype.task.execution.input.package_content_id
+        type: string
+        stability: stable
+        brief: >
+          The UUID of the package content provided as input to this task execution.
+        examples: ['cce09dc6-4938-4739-a36f-9a1c9229ac8c']

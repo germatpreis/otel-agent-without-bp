@@ -1,0 +1,19 @@
+{
+  "namespace": "xtype.deployment.state.event.external.v1",
+  "type": "record",
+  "name": "ReleasePackageDeploymentBlockedV1",
+  "fields": [
+    {
+      "name": "workflow_execution",
+      "type": "xtype.deployment.state.event.external.v1.WorkflowExecutionHeaderV1"
+    },
+    {
+      "name": "timestamp",
+      "type": "long"
+    },
+    {
+      "name": "release_package",
+      "type": "xtype.deployment.state.event.external.v1.ReleasePackageHeaderV1"
+    }
+  ]
+}

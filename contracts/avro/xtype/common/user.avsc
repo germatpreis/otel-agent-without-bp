@@ -1,0 +1,18 @@
+{
+  "namespace": "xtype.common",
+  "type": "record",
+  "name": "User",
+  "doc": "Contains information about a user. Often delivered a part of a REST request.",
+  "fields": [
+    {
+      "name": "technicalUserName",
+      "type": ["null", "string"],
+      "doc": "The technical name of the user."
+    },
+    {
+      "name": "displayUserName",
+      "type": ["null", "string"],
+      "doc": "A readable name for the user."
+    }
+  ]
+}

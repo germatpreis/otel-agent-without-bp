@@ -1,0 +1,12 @@
+{
+  "namespace": "xtype.snow_sync.common",
+  "type": "record",
+  "name": "SnowDeletionEventV1",
+  "fields": [
+    {
+      "name": "deletionTm",
+      "type": "long",
+      "doc": "When record was deleted."
+    }
+  ]
+}

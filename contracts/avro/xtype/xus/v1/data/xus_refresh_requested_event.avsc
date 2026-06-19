@@ -1,0 +1,21 @@
+{
+  "namespace": "xtype.xus.event.external.v1.data",
+  "type": "record",
+  "name": "XusRefreshRequestedEventV1",
+  "doc": "This payload can be sent if only single or a couple of XUS should be recalculated. This can be significantly faster than recalculating all XUS for a customer.",
+  "fields": [
+    {
+      "name": "targetSnowCompanyId",
+      "type": "string",
+      "doc": "The customer we want to run the refresh for."
+    },
+    {
+      "name": "xus",
+      "type": {
+        "type": "array",
+        "items": "string"
+      },
+      "doc": "A list of UIDs for xus that should be refreshed."
+    }
+  ]
+}

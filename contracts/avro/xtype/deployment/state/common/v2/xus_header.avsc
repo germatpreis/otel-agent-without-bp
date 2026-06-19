@@ -1,0 +1,19 @@
+{
+  "namespace": "xtype.deployment.state.event.external.v2",
+  "type": "record",
+  "name": "XusHeaderV2",
+  "fields": [
+    {
+      "name": "uid",
+      "type": "string"
+    },
+    {
+      "name": "snow_company_id",
+      "type": "string"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    }
+  ]
+}

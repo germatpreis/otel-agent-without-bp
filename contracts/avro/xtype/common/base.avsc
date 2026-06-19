@@ -1,0 +1,50 @@
+{
+  "namespace": "xtype.common",
+  "type": "record",
+  "name": "Base",
+  "fields": [
+    {
+      "name": "uuid",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      },
+      "doc": "Globally unique ID of the event."
+    },
+    {
+      "name": "uid",
+      "type": ["null", "string"],
+      "doc": "Unique ID of the event. This is id is usually tied to the content of the '$.data' property ie. if the '$.data' property contains a 'user' object, the field 'uid' might point to his 'username'."
+    },
+    {
+      "name": "eventType",
+      "type": "string",
+      "doc": "The event type that describes this event (and especially the '$.data' property) uniquely for this topic."
+    },
+    {
+      "name": "eventVersion",
+      "type": "string",
+      "doc": "The event version that is currently in place. The format is <MAJOR.MINOR>. Default is '1.0'. For every non-breaking change that follows 'BACKWARD_TRANSITIVE' principles, increment the MINOR segment. For breaking changes, we follow another approach (TBD)."
+    },
+    {
+      "name": "createdAt",
+      "type": "long",
+      "doc": "The creation timestamp of the event, defaults to Instant.now(). Not the kafka message timestamp."
+    },
+    {
+      "name": "applicationId",
+      "type": "string",
+      "doc": "The name of the sending application."
+    },
+    {
+      "name": "snowCompanyId",
+      "type": ["null", "string"],
+      "doc": "If present, points to the id of one of our customers. It depends on the context of the message what this means."
+    },
+    {
+      "name": "snowInstanceId",
+      "type": ["null", "string"],
+      "doc": "If present, points to the id of a ServiceNow instance. It depends on the context of the message what this means."
+    }
+  ]
+}

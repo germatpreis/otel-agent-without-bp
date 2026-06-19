@@ -1,0 +1,7 @@
+{
+  "namespace": "xtype.xapp_legacy.v1.data",
+  "type": "record",
+  "name": "XappFullRecalculationEventV1",
+  "doc": "This payload can be sent to trigger a full recalculation of XApp data for the given customer",
+  "fields": []
+}

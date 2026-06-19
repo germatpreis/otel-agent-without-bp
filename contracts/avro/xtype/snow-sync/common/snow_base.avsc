@@ -1,0 +1,39 @@
+{
+  "namespace": "xtype.snow_sync.common",
+  "type": "record",
+  "name": "SnowBase",
+  "fields": [
+    {
+      "name": "sysId",
+      "type": "string",
+      "doc": "The unique id of the record in Service Now. Uniqueness in only guaranteed within a single instance, thus not globally unique."
+    },
+    {
+      "name": "snowTable",
+      "type": "string",
+      "doc": "The original name of the table in the service now."
+    },
+    {
+      "name": "sysCreatedBy",
+      "type": "string",
+      "doc": "The creator of this record in ServiceNow."
+    },
+    {
+      "name": "sysCreatedOn",
+      "type": "long",
+      "doc": "The creation time in ServiceNow (TZ is implicitly in UTC)."
+    },
+    {
+      "name": "sysUpdatedBy",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The last updater of this record in ServiceNow."
+    },
+    {
+      "name": "sysUpdatedOn",
+      "type": [ "null", "long" ],
+      "default": null,
+      "doc": "the last update timestamp in ServiceNow (TZ is implicitly in UTC)."
+    }
+  ]
+}

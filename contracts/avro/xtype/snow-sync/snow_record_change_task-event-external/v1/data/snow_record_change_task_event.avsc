@@ -1,0 +1,49 @@
+{
+  "namespace": "xtype.snow_sync.snow_record_change_task.event.external.v1.data",
+  "type": "record",
+  "name": "SnowRecordChangeTaskEventV1",
+  "fields": [
+    {
+      "name": "active",
+      "type": "boolean",
+      "default": true,
+      "doc": "If active or not"
+    },
+    {
+      "name": "shortDescription",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Short description or title of the change request."
+    },
+    {
+      "name": "changeRequest",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Unique identifier of the change request this task belongs to."
+    },
+    {
+      "name": "number",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Human-readable change task number (e.g., CTSK003453)."
+    },
+    {
+      "name": "state",
+      "type": "int",
+      "default": 0,
+      "doc": "Current state code of the task."
+    },
+    {
+      "name": "plannedStartDate",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Planned start date/time of the change task. Often unused or null."
+    },
+    {
+      "name": "plannedEndDate",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Planned end date/time of the change task. Often unused or null."
+    }
+  ]
+}

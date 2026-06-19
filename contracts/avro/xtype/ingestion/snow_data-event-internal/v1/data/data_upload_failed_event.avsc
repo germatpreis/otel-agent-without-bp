@@ -1,0 +1,24 @@
+{
+  "namespace": "xtype.ingestion.snow_data.event.internal.v1.data",
+  "type": "record",
+  "name": "DataUploadFailedEventV1",
+  "fields": [
+    {
+      "name": "failType",
+      "type": {
+        "type": "enum",
+        "name": "FailType",
+        "symbols": [
+          "UNRECOVERABLE_ERROR"
+        ],
+        "doc": "The type of failure (e.g., unrecoverableError)."
+      },
+      "doc": "The type of failure for the upload."
+    },
+    {
+      "name": "reason",
+      "type": "string",
+      "doc": "A readable reason why this upload is to be marked as failed."
+    }
+  ]
+}

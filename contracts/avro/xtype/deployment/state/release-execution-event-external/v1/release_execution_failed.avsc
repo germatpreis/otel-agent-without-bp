@@ -1,0 +1,19 @@
+{
+  "namespace": "xtype.deployment.state.event.external.v1",
+  "type": "record",
+  "name": "ReleaseExecutionFailedV1",
+  "fields": [
+    {
+      "name": "release",
+      "type": "xtype.deployment.state.event.external.v1.ReleaseHeaderV1"
+    },
+    {
+      "name": "execution",
+      "type": "xtype.deployment.state.event.external.v1.ReleaseExecutionHeaderV1"
+    },
+    {
+      "name": "timestamp",
+      "type": "long"
+    }
+  ]
+}

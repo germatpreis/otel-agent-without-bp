@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "name": "MailNotificationV1",
+  "namespace": "xtype.notifications.notification.event.external.v1",
+  "fields": [
+    {
+      "name": "address",
+      "type": "string"
+    },
+    {
+      "name": "subject",
+      "type": "string"
+    },
+    {
+      "name": "htmlMessage",
+      "type": "string"
+    },
+    {
+      "name": "plainMessage",
+      "type": "string"
+    }
+  ]
+}

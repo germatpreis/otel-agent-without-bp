@@ -1,0 +1,22 @@
+{
+  "namespace": "xtype.snow_sync.snow_record_update_set_source.event.external.v1.data",
+  "type": "record",
+  "name": "SnowRecordUpdateSetSourceEventV1",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string",
+      "doc": "The name of the instance."
+    },
+    {
+      "name": "active",
+      "type": "boolean",
+      "doc": "Activeness of the instance source."
+    },
+    {
+      "name": "instance_id",
+      "type": "string",
+      "doc": "The instance id"
+    }
+  ]
+}

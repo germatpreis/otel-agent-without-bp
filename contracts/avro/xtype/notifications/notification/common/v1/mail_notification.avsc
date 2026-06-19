@@ -1,0 +1,24 @@
+{
+  "type": "record",
+  "name": "MailNotification",
+  "namespace": "xtype.notifications.notification.event.external.v1",
+  "doc": "Obsolete, use MailNotificationV1 instead",
+  "fields": [
+    {
+      "name": "address",
+      "type": "string"
+    },
+    {
+      "name": "subject",
+      "type": "string"
+    },
+    {
+      "name": "htmlMessage",
+      "type": "string"
+    },
+    {
+      "name": "plainMessage",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+groups:
+  - id: registry.xtype.snow
+    type: attribute_group
+    stability: stable
+    display_name: ServiceNow Attributes
+    brief: 'This document defines semantic convention attributes related to the `SNOW` domain'
+    attributes:
+      - id: xtype.us.sys_id
+        type: string
+        stability: stable
+        brief: >
+          SN-issued identifier of a `local update set` OR `remote update set`.
+        examples: ['9b0d16461b17c290c94855351a4bcb2a']
+      - id: xtype.us.name
+        type: string
+        stability: stable
+        brief: >
+          The name of the `update_set` as given by the SN developer.
+        examples: ['xtype 3.3.0']
+      - id: xtype.us.x_commit_logs.warning_logs
+        type: int
+        stability: stable
+        brief: >
+          The number of warning log entries found in the commit logs of the `update_set`.
+        examples: [3]
+      - id: xtype.us.x_commit_logs.error_logs
+        type: int
+        stability: stable
+        brief: >
+          The number of error log entries found in the commit logs of the `update_set`.
+        examples: [1]
+      - id: xtype.us.x_commit_logs.finished_log_found
+        type: boolean
+        stability: stable
+        brief: >
+          Whether a finished log entry was found in the commit logs of the `update_set`.

@@ -1,0 +1,11 @@
+{
+  "namespace": "xtype.deployment.state.event.external.v1",
+  "type": "record",
+  "name": "PreviewProblemV1",
+  "fields": [
+    {
+      "name": "preview_problems_count",
+      "type": "int"
+    }
+  ]
+}

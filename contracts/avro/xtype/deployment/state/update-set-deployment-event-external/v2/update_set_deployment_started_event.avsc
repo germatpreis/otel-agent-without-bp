@@ -1,0 +1,47 @@
+{
+  "namespace": "xtype.deployment.state.event.external.v2",
+  "type": "record",
+  "name": "UpdateSetDeploymentStartedEventV2",
+  "fields": [
+    {
+      "name": "workflow_execution",
+      "type": "xtype.deployment.state.event.external.v1.WorkflowExecutionHeaderV1"
+    },
+    {
+      "name": "task_execution",
+      "type": ["null", "xtype.deployment.state.event.external.v1.TaskExecutionHeaderV1"],
+      "default": null
+    },
+    {
+      "name": "xus",
+      "type": "xtype.deployment.state.event.external.v2.XusHeaderV2"
+    },
+    {
+      "name": "timestamp",
+      "type": "long"
+    },
+    {
+      "name": "started_at",
+      "type": "long",
+      "doc": "Epoch millis when the deployment actually started (dagRun.start_date)"
+    },
+    {
+      "name": "executed_by",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Display name of the user who triggered the deployment"
+    },
+    {
+      "name": "is_automated",
+      "type": ["null", "boolean"],
+      "default": null,
+      "doc": "True for auto-deploy, false for click deploy, null if unknown"
+    },
+    {
+      "name": "update_set",
+      "type": ["null", "xtype.deployment.state.event.external.v2.UpdateSetHeaderV2"],
+      "default": null,
+      "doc": "Header identifying the individual update set being deployed (contains source_sys_id)"
+    }
+  ]
+}

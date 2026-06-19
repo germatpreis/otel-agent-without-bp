@@ -1,0 +1,41 @@
+groups:
+  - id: registry.xtype.notification
+    type: attribute_group
+    stability: stable
+    display_name: Notification Attributes
+    brief: 'This document defines semantic convention attributes related to the `Notification` domain'
+    attributes:
+      - id: xtype.notification.source_event_id
+        type: string
+        stability: stable
+        brief: >
+          The source event id.
+        examples: ['cce09dc6-4938-4739-a36f-9a1c9229ac8c']
+      - id: xtype.notification.resource_id
+        type: string
+        stability: stable
+        brief: >
+          The resource id. E.g uid of a release, package or xus
+        examples: ['cce09dc6-4938-4739-a36f-9a1c9229ac8c']
+      - id: xtype.notification.id
+        type: string
+        stability: stable
+        brief: >
+          The id of the notification that is sent.
+        examples: ['cce09dc6-4938-4739-a36f-9a1c9229ac8c']
+      - id: xtype.notification.type
+        type:
+          members:
+            - id: EMAIL
+              value: EMAIL
+              stability: stable
+            - id: SLACK
+              value: SLACK
+              stability: stable
+            - id: MSTEAMS
+              value: MSTEAMS
+              stability: stable
+        stability: stable
+        brief: >
+          The type of the notification that is sent.
+        examples: ['SLACK']

@@ -1,0 +1,16 @@
+{
+  "name": "SlackNotification",
+  "namespace": "xtype.notifications.notification.event.external.v1",
+  "doc": "Obsolete, use SlackNotificationV1 instead",
+  "type": "record",
+  "fields": [
+    {
+      "name": "webhook",
+      "type": "string"
+    },
+    {
+      "name": "message",
+      "type": "string"
+    }
+  ]
+}

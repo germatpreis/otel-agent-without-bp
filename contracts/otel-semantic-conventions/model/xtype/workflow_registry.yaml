@@ -1,0 +1,59 @@
+groups:
+  - id: registry.xtype.workflow
+    type: attribute_group
+    stability: stable
+    display_name: Workflow Attributes
+    brief: 'This document defines semantic convention attributes related to the `Workflow` domain'
+    attributes:
+      - id: xtype.workflow.execution.id
+        type: string
+        stability: stable
+        brief: >
+          The `UUID` of the workflow execution.
+        examples: ['cce09dc6-4938-4739-a36f-9a1c9229ac8c']
+      - id: xtype.workflow.execution.state
+        type: string
+        stability: stable
+        brief: >
+          The state of the workflow execution.
+        examples: ['success']
+      - id: xtype.workflow.source_instance_sys_id
+        type: string
+        stability: stable
+        brief: >
+          A instance in ServiceNow that is consider a source for an operation.
+        examples: ['9d2427b2dbf47b0052cec5970596190b']
+      - id: xtype.workflow.target_instance_sys_id
+        type: string
+        stability: stable
+        brief: >
+          A instance in ServiceNow that is consider a target for an operation.
+        examples: ['9d2427b2dbf47b0052cec5970596190b']
+      - id: xtype.workflow.type
+        type:
+          members:
+            - id: APP_REPO_DEPLOYMENT_WORKFLOW
+              value: APP_REPO_DEPLOYMENT_WORKFLOW
+              stability: stable
+            - id: DEPLOYMENT_WORKFLOW
+              value: DEPLOYMENT_WORKFLOW
+              stability: stable
+            - id: EXECUTE_SCRIPT_WORKFLOW
+              value: EXECUTE_SCRIPT_WORKFLOW
+              stability: stable
+            - id: GENERIC_WORKFLOW
+              value: GENERIC_WORKFLOW
+              stability: stable
+            - id: REJECTION_WORKFLOW
+              value: REJECTION_WORKFLOW
+              stability: stable
+            - id: PACKAGE_DEPLOYMENT_WORKFLOW
+              value: PACKAGE_DEPLOYMENT_WORKFLOW
+              stability: stable
+            - id: UPLOAD_XML_WORKFLOW
+              value: UPLOAD_XML_WORKFLOW
+              stability: stable
+        stability: stable
+        brief: >
+          The type of the workflow
+        examples: ['DEPLOYMENT_WORKFLOW']

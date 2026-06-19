@@ -1,0 +1,165 @@
+{
+  "namespace": "xtype.ingestion.snow_data.event.internal.v1.data",
+  "type": "record",
+  "name": "DataUploadedEventV1",
+  "fields": [
+    {
+      "name": "stats",
+      "type": {
+        "type": "record",
+        "name": "DataUploadedEventStats",
+        "fields": [
+          {
+            "name": "tables",
+            "type": {
+              "type": "map",
+              "values": {
+                "type": "record",
+                "name": "TableStats",
+                "fields": [
+                  {
+                    "name": "processed",
+                    "type": "int"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "name": "baseTable",
+            "type": "string",
+            "doc": "The base table for this upload & stats"
+          },
+          {
+            "name": "baseTablePercentComplete",
+            "type": "int"
+          },
+          {
+            "name": "baseTableTotal",
+            "type": "int",
+            "doc": "How many records from the base table are going to be sent"
+          }
+        ]
+      }
+    },
+    {
+      "name": "data",
+      "type": {
+        "type": "record",
+        "name": "DataUploadedEventData",
+        "fields": [
+          {
+            "name": "table",
+            "type": "string",
+            "doc": "Name of the table this record belongs to"
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "doc": "Unique identifier of the record"
+          },
+          {
+            "name": "sysId",
+            "type": "string",
+            "default": "",
+            "doc": "The unique id of the record in Service Now. Uniqueness in only guaranteed within a single instance, thus not globally unique."
+          },
+          {
+            "name": "sysUpdatedOn",
+            "type": "string",
+            "doc": "Last update timestamp in ServiceNow"
+          },
+          {
+            "name": "sysUpdatedBy",
+            "type": "string",
+            "doc": "Last updated user in ServiceNow"
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "doc": "Label or name of the record"
+          },
+          {
+            "name": "relations",
+            "type": {
+              "type": "array",
+              "items": "string"
+            },
+            "default": [],
+            "doc": "DEPRECATED: Use structuredRelations instead. Legacy flat string format for related records."
+          },
+          {
+            "name": "choices",
+            "type": {
+              "type": "array",
+              "items": "string"
+            },
+            "doc": "Available choices for this record"
+          },
+          {
+            "name": "choiceId",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null,
+            "doc": "Selected choice ID if applicable"
+          },
+          {
+            "name": "payloadHash",
+            "type": "string",
+            "doc": "MD5 hash of the entire payload"
+          },
+          {
+            "name": "payloadHashByProperty",
+            "type": {
+              "type": "map",
+              "values": "string"
+            },
+            "doc": "MD5 hashes of individual properties within the payload"
+          },
+          {
+            "name": "payload",
+            "type": "string",
+            "doc": "Encrypted payload data"
+          },
+          {
+            "name": "depth",
+            "type": "int",
+            "default": 0,
+            "doc": "Depth of this record relative to the base table (0 = base table record)"
+          },
+          {
+            "name": "structuredRelations",
+            "type": {
+              "type": "array",
+              "items": {
+                "type": "record",
+                "name": "AgentRelation",
+                "fields": [
+                  {
+                    "name": "field",
+                    "type": "string",
+                    "doc": "The reference field name on this record"
+                  },
+                  {
+                    "name": "table",
+                    "type": "string",
+                    "doc": "The target table name"
+                  },
+                  {
+                    "name": "sysId",
+                    "type": "string",
+                    "doc": "The sys_id of the referenced record"
+                  }
+                ]
+              }
+            },
+            "default": [],
+            "doc": "Structured relation data with field, table, sysId (replaces flat string format)"
+          }
+        ]
+      }
+    }
+  ]
+}
