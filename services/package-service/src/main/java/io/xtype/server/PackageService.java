@@ -33,7 +33,7 @@ class PackageService {
   private static MessageV1 buildMessage(DeployPackageRequest request) {
     return MessageV1.newBuilder()
         .setBase(dummyBase())
-        .setAudit(dummyAudit())
+        .setAudit(dummyAudit(request))
         .setPayload(buildPayload(request))
         .build();
   }
@@ -51,7 +51,7 @@ class PackageService {
         .build();
   }
 
-  private static AuditContext dummyAudit() {
+  private static AuditContext dummyAudit(DeployPackageRequest request) {
     return AuditContext.newBuilder()
         .setOperation("package.deploy")
         .setEntityType("package")
@@ -59,8 +59,8 @@ class PackageService {
         .setEntityName(null)
         .setActorType("SYSTEM")
         .setActor(User.newBuilder()
-            .setTechnicalUserName(null)
-            .setDisplayUserName(null)
+            .setTechnicalUserName(request.triggeredBy())
+            .setDisplayUserName(request.triggeredBy())
             .build())
         .build();
   }
