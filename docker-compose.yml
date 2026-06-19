@@ -1,26 +1,60 @@
-version: "3.7"
 services:
-  foobar-service-manual-dockerfile:
-    build:
-      context: .
-      dockerfile: foobar-service-repacked-agent-and-ext.Dockerfile
+  postgres:
+    image: postgres:16.2-alpine
     environment:
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-infrastructure:4318
+      - "POSTGRES_USER=root"
+      - "POSTGRES_PASSWORD=dev123"
+      - "POSTGRES_MULTIPLE_DATABASES=temporal_postgres16,audittrail"
     ports:
-      - "8080:8080"
-    depends_on:
-      - otel-infrastructure
+      - "5432:5432"
+    volumes:
+      - "pg-data:/var/lib/postgresql/data"
+      - "./docker/postgres:/docker-entrypoint-initdb.d"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
-  foobar-service-layered-jar:
-    build:
-      context: .
-      dockerfile: foobar-service-layered-jar.Dockerfile
-    environment:
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-infrastructure:4318
-    ports:
-      - "8080:8080"
+  temporal:
     depends_on:
-      - otel-infrastructure
+      postgres:
+        condition: service_healthy
+    environment:
+      - DB=postgres12
+      - DB_PORT=5432
+      - DBNAME=temporal
+      - VISIBILITY_DBNAME=temporal_visibility
+      - POSTGRES_USER=root
+      - POSTGRES_PWD=dev123
+      - POSTGRES_SEEDS=postgres
+      - SKIP_DB_CREATE=false
+      - DYNAMIC_CONFIG_FILE_PATH=config/dynamic-config/development-sql.yaml
+    image: temporalio/auto-setup:1.24.2
+    ports:
+      - "7233:7233"
+    volumes:
+      - ./docker/temporal:/etc/temporal/config/dynamic-config
+
+  temporal-admin-tools:
+    depends_on:
+      - temporal
+    environment:
+      - TEMPORAL_ADDRESS=temporal:7233
+      - TEMPORAL_CLI_ADDRESS=temporal:7233
+    image: temporalio/admin-tools:1.24.2-tctl-1.18.1-cli-0.13.0
+    stdin_open: true
+    tty: true
+
+  temporal-ui:
+    depends_on:
+      - temporal
+    environment:
+      - TEMPORAL_ADDRESS=temporal:7233
+      - TEMPORAL_CORS_ORIGINS=http://localhost:3000
+    image: temporalio/ui:2.27.3
+    ports:
+      - "8089:8080"
 
   otel-infrastructure:
     image: grafana/otel-lgtm:latest
@@ -32,7 +66,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_SECURITY_ADMIN_USER=admin
     volumes:
-#      - ./docker/otel-lgtm/run-otelcol.sh:/otel-lgtm/run-otelcol.sh
+      #      - ./docker/otel-lgtm/run-otelcol.sh:/otel-lgtm/run-otelcol.sh
       - ./docker/otel-lgtm/otelcol-config.yaml:/otel-lgtm/otelcol-config.yaml
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:13133/ready" ]
@@ -41,3 +75,16 @@ services:
       retries: 5
       start_period: 10s
 
+volumes:
+  mongo-data: { }
+  mongo-data-rs: { }
+  pg-data: { }
+  kong_data: { }
+  kong_prefix_vol:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+  kong_tmp_vol:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
