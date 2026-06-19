@@ -20,6 +20,7 @@
     <properties>
         <java.version>21</java.version>
         <opentelemetry.javaagent.version>2.19.0</opentelemetry.javaagent.version>
+        <temporal.version>1.29.0</temporal.version>
     </properties>
 
     <modules>
@@ -58,6 +59,11 @@
                 <groupId>io.xtype.starter</groupId>
                 <artifactId>xtype-spring-boot-starter-kafka</artifactId>
                 <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.temporal</groupId>
+                <artifactId>temporal-spring-boot-starter</artifactId>
+                <version>${temporal.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.xtype.api</groupId>
