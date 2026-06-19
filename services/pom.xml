@@ -5,15 +5,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.xtype</groupId>
-        <artifactId>otel-agent-without-bp</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.5</version>
+        <relativePath />
     </parent>
 
+    <groupId>io.xtype</groupId>
     <artifactId>services</artifactId>
     <name>Services</name>
     <packaging>pom</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <properties>
+        <java.version>21</java.version>
+        <opentelemetry.javaagent.version>2.19.0</opentelemetry.javaagent.version>
+    </properties>
 
     <modules>
         <module>deployment-service</module>
@@ -24,10 +31,45 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry.instrumentation</groupId>
+            <artifactId>opentelemetry-instrumentation-annotations</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.xtype.starter</groupId>
             <artifactId>xtype-spring-boot-starter-kafka</artifactId>
-            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.xtype.api</groupId>
+            <artifactId>avro-api</artifactId>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.xtype.starter</groupId>
+                <artifactId>xtype-spring-boot-starter-kafka</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.xtype.api</groupId>
+                <artifactId>avro-api</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.opentelemetry.instrumentation</groupId>
+                <artifactId>opentelemetry-instrumentation-annotations</artifactId>
+                <version>${opentelemetry.javaagent.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
