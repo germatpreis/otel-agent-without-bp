@@ -10,7 +10,7 @@
 		<relativePath />
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>release-service-layered-jar</artifactId>
+	<artifactId>policy-engine</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>service</name>
 	<description>Demo project for Spring Boot</description>

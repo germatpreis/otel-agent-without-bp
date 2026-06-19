@@ -7,7 +7,7 @@
       <env name="OTEL_SERVICE_NAME" value="foobar-service-otel-starter" />
       <env name="OTEL_TRACES_EXPORTER" value="otlp" />
     </envs>
-    <module name="foobar-service-otel-starter" />
+    <module name="audittrail-service" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.server.ServiceApplication" />
     <method v="2">
       <option name="Make" enabled="true" />
