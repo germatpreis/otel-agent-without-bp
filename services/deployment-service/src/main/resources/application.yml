@@ -1,3 +1,36 @@
+logging:
+  level:
+    io.xtype: DEBUG
 spring:
   application:
     name: DeploymentService
+  kafka:
+    properties:
+      schema:
+        registry:
+          url: http://127.0.0.1:8081
+      value.subject.name.strategy: io.confluent.kafka.serializers.subject.TopicNameStrategy
+      derive.type: true
+    producer:
+      client-id: deployment-service-producer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      properties:
+        enable.idempotence: true
+        max.in.flight.requests.per.connection: 1 # Ensures message order
+        auto.register.schemas: false
+        use.latest.version: true
+        max.request.size: 4194304
+    consumer:
+      auto-offset-reset: latest
+      group-id: deployment-service-consumer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      enable-auto-commit: false
+      max-poll-records: 1
+      properties:
+        isolation.level: read_committed
+        specific.avro.reader: true
+    bootstrap-servers: 127.0.0.1:9092
+server:
+  port: 8083
