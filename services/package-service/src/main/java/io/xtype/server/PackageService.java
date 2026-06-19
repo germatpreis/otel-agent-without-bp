@@ -7,6 +7,9 @@ import jakarta.validation.Valid;
 import java.time.Instant;
 import java.util.UUID;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import xtype.common.AuditContext;
 import xtype.common.Base;
@@ -17,6 +20,7 @@ import xtype.package$.event.internal.v1.data.PackageContentItemV1;
 
 @Service
 class PackageService {
+  private static final Logger LOGGER = LoggerFactory.getLogger(PackageService.class);
 
   private final KafkaProducer<Object> kafkaProducer;
 
@@ -28,6 +32,11 @@ class PackageService {
     var message = buildMessage(request);
     var record = new ProducerRecord<String, Object>(Topics.TOPIC_PACKAGE, message);
     kafkaProducer.sendToKafkaAsync(record);
+  }
+
+  @KafkaListener(topics = Topics.TOPIC_PACKAGE)
+  public void dummyListener(MessageV1 message) {
+    LOGGER.info("Received message: " + message);
   }
 
   private static MessageV1 buildMessage(DeployPackageRequest request) {
@@ -55,9 +64,9 @@ class PackageService {
     return AuditContext.newBuilder()
         .setOperation("package.deploy")
         .setEntityType("package")
-        .setEntityId("dummy-entity-id")
-        .setEntityName(null)
-        .setActorType("SYSTEM")
+        .setEntityId(request.packageId().toString())
+        .setEntityName(request.packageName())
+        .setActorType("USER")
         .setActor(User.newBuilder()
             .setTechnicalUserName(request.triggeredBy())
             .setDisplayUserName(request.triggeredBy())
