@@ -4,6 +4,15 @@ logging:
 spring:
   application:
     name: DeploymentService
+  temporal:
+    connection:
+      target: localhost:7233
+    namespace: default
+    workers:
+      - name: main
+        task-queue: deployment-service
+    workersAutoDiscovery:
+      packages: io.xtype.server.temporal
   kafka:
     properties:
       schema:
@@ -34,3 +43,6 @@ spring:
     bootstrap-servers: 127.0.0.1:9092
 server:
   port: 8083
+services:
+  policy-engine:
+    url: http://localhost:8084
