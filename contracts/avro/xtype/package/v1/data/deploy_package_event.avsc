@@ -2,5 +2,56 @@
   "namespace": "xtype.package.event.internal.v1.data",
   "type": "record",
   "name": "DeployPackageEventV1",
-  "fields": []
+  "fields": [
+    {
+      "name": "triggeredBy",
+      "type": "string",
+      "doc": "The name of the user or system that triggered the deployment."
+    },
+    {
+      "name": "packageName",
+      "type": "string",
+      "doc": "The human-readable name of the package to deploy."
+    },
+    {
+      "name": "packageId",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      },
+      "doc": "Unique identifier of the package to deploy."
+    },
+    {
+      "name": "content",
+      "type": {
+        "type": "array",
+        "items": {
+          "namespace": "xtype.package.event.internal.v1.data",
+          "type": "record",
+          "name": "PackageContentItemV1",
+          "fields": [
+            {
+              "name": "uid",
+              "type": {
+                "type": "string",
+                "logicalType": "uuid"
+              },
+              "doc": "Unique identifier of the content item."
+            },
+            {
+              "name": "type",
+              "type": "string",
+              "doc": "The type of content item, e.g. 'update_set'."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "doc": "Human-readable name of the content item."
+            }
+          ]
+        }
+      },
+      "doc": "The list of content items included in this deployment package."
+    }
+  ]
 }
