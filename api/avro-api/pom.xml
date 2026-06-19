@@ -15,6 +15,8 @@
 
   <properties>
     <avro-spec-base-dir>${project.basedir}/../../contracts/avro</avro-spec-base-dir>
+    <confluent.version>7.5.8</confluent.version>
+    <schema.registry.url>http://127.0.0.1:8081</schema.registry.url>
   </properties>
 
   <dependencies>
@@ -61,6 +63,74 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>io.confluent</groupId>
+        <artifactId>kafka-schema-registry-maven-plugin</artifactId>
+        <version>${confluent.version}</version>
+        <configuration>
+          <schemaRegistryUrls>
+            <param>${schema.registry.url}</param>
+          </schemaRegistryUrls>
+          <!--
+            Subjects are registered in declaration order, so shared types come first
+            so that the message schemas can reference them.
+          -->
+          <subjects>
+            <!-- Shared types -->
+            <xtype-common-base>${avro-spec-base-dir}/xtype/common/base.avsc</xtype-common-base>
+            <xtype-common-user>${avro-spec-base-dir}/xtype/common/user.avsc</xtype-common-user>
+            <xtype-common-audit-context>${avro-spec-base-dir}/xtype/common/audit_context.avsc</xtype-common-audit-context>
+            <!-- Data schemas -->
+            <xtype-package-deploy-package-event-v1>${avro-spec-base-dir}/xtype/package/v1/data/deploy_package_event.avsc</xtype-package-deploy-package-event-v1>
+            <!-- Message envelopes (topic value schemas) -->
+            <xtype-package-event-internal-v1-value>${avro-spec-base-dir}/xtype/package/v1/message.avsc</xtype-package-event-internal-v1-value>
+          </subjects>
+          <references>
+            <xtype-common-audit-context>
+              <reference>
+                <name>xtype.common.User</name>
+                <subject>xtype-common-user</subject>
+                <version>-1</version>
+              </reference>
+            </xtype-common-audit-context>
+            <xtype-package-deploy-package-event-v1>
+              <!-- PackageContentItemV1 is defined inline within this schema, no reference needed -->
+            </xtype-package-deploy-package-event-v1>
+            <xtype-ingestion-snow_data-event-internal-v1-value>
+              <reference>
+                <name>xtype.common.Base</name>
+                <subject>xtype-common-base</subject>
+                <version>-1</version>
+              </reference>
+            </xtype-ingestion-snow_data-event-internal-v1-value>
+            <xtype-package-event-internal-v1-value>
+              <reference>
+                <name>xtype.common.Base</name>
+                <subject>xtype-common-base</subject>
+                <version>-1</version>
+              </reference>
+              <reference>
+                <name>xtype.common.AuditContext</name>
+                <subject>xtype-common-audit-context</subject>
+                <version>-1</version>
+              </reference>
+              <reference>
+                <name>xtype.package.event.internal.v1.data.DeployPackageEventV1</name>
+                <subject>xtype-package-deploy-package-event-v1</subject>
+                <version>-1</version>
+              </reference>
+            </xtype-package-event-internal-v1-value>
+          </references>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>confluent</id>
+      <url>https://packages.confluent.io/maven/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
 </project>
