@@ -8,7 +8,7 @@
       <env name="OTEL_TRACES_EXPORTER" value="otlp" />
     </envs>
     <module name="audittrail-service" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.server.ServiceApplication" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.xtype.server.AudittrailApplication" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

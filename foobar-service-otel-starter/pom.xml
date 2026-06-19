@@ -9,7 +9,7 @@
 		<version>3.3.5</version>
 		<relativePath />
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>io.xtype</groupId>
 	<artifactId>foobar-service-otel-starter</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>service</name>

@@ -5,18 +5,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.example</groupId>
+        <groupId>io.xtype</groupId>
         <artifactId>otel-agent-without-bp</artifactId>
-        <version>1.0.0</version>
+        <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>services</artifactId>
+    <name>Services</name>
     <packaging>pom</packaging>
 
     <modules>
         <module>deployment-service</module>
-        <module>release-service</module>
+        <module>package-service</module>
         <module>audittrail-service</module>
         <module>policy-engine</module>
     </modules>

@@ -10,9 +10,9 @@
 		<relativePath />
 	</parent>
 	<groupId>io.xtype</groupId>
-	<artifactId>deployment-service</artifactId>
+	<artifactId>package-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Deployment Service</name>
+	<name>Package Service</name>
 	<description>Demo project for Spring Boot</description>
 	<url />
 	<licenses>

@@ -5,13 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.example</groupId>
+        <groupId>io.xtype</groupId>
         <artifactId>otel-agent-without-bp</artifactId>
-        <version>1.0.0</version>
+        <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>services-mothballed</artifactId>
+    <name>Services Mothballed</name>
     <packaging>pom</packaging>
 
     <modules>

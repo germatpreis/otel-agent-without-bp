@@ -9,10 +9,10 @@
 		<version>3.3.5</version>
 		<relativePath />
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>io.xtype</groupId>
 	<artifactId>policy-engine</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>service</name>
+	<name>Policy Engine</name>
 	<description>Demo project for Spring Boot</description>
 	<url />
 	<licenses>

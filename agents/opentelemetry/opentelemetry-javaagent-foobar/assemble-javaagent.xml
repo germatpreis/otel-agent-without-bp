@@ -20,7 +20,7 @@
       <unpack>false</unpack>
       <useProjectArtifact>false</useProjectArtifact>
       <includes>
-        <include>com.example:opentelemetry-javaagent-foobar-ext</include>
+        <include>io.xtype:opentelemetry-javaagent-foobar-ext</include>
       </includes>
     </dependencySet>
   </dependencySets>
