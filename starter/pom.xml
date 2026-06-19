@@ -11,23 +11,13 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>services</artifactId>
-    <name>Services</name>
+    <groupId>io.xtype.starter</groupId>
+    <artifactId>starter</artifactId>
     <packaging>pom</packaging>
+    <name>Starter</name>
 
     <modules>
-        <module>deployment-service</module>
-        <module>package-service</module>
-        <module>audittrail-service</module>
-        <module>policy-engine</module>
+        <module>xtype-spring-boot-starter-kafka</module>
     </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>io.xtype.starter</groupId>
-            <artifactId>xtype-spring-boot-starter-kafka</artifactId>
-            <version>${version}</version>
-        </dependency>
-    </dependencies>
 
 </project>
