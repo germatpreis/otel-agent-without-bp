@@ -13,7 +13,7 @@ public class BaggageSpanProcessor implements SpanProcessor {
     span.setAttribute("baggage.cats.are.cool", true);
     var map = Baggage.fromContext(parentContext).asMap();
     if (map != null) {
-      map.forEach((key, value) -> span.setAttribute("baggage." + key, value.getValue()));
+      map.forEach((key, value) -> span.setAttribute(key, value.getValue()));
     }
   }
 

@@ -39,11 +39,12 @@ public class DeploymentConsumer {
     var path = Baggage.current().getEntryValue(OtelSemanticConventions.AUDIT_TRAIL_PATH);
     LOGGER.info("Received audittrail path {}", path);
 
+    var base = message.getBase();
     var payload = (DeployPackageEventV1) message.getPayload();
 
     for (var contentItem : payload.getContent()) {
 
-      var auditContext = AuditContextBuilder.newBuilder()
+      var newAuditContext = AuditContextBuilder.newBuilder()
           .entityType("updateset")
           .entityId(contentItem.getUid().toString())
           .entityName(contentItem.getName().toString())
@@ -53,11 +54,12 @@ public class DeploymentConsumer {
       try (var scope = Baggage.current().toBuilder()
           // attach the audittrail://package/<packageId>/updateset/<updateSetUid> to the baggage for the next call
           // all subsequent requests (will have this baggage set)
-          .put(AUDIT_TRAIL_PATH, auditContext.getPath().toString())
+          .put(AUDIT_TRAIL_PATH, newAuditContext.getPath().toString())
           .build()
           .makeCurrent()) {
-        var context = buildContext(message.getBase(), auditContext, contentItem);
-        startWorkflow(context);
+
+        var temporalContext = buildTemporalContext(base, newAuditContext, contentItem);
+        startWorkflow(temporalContext);
       }
     }
   }
@@ -71,7 +73,7 @@ public class DeploymentConsumer {
     WorkflowClient.start(stub::execute, context);
   }
 
-  private static DeployContentItemContext buildContext(
+  private static DeployContentItemContext buildTemporalContext(
       Base base, AuditContext audit, PackageContentItemV1 contentItem
   ) {
     return new DeployContentItemContext(

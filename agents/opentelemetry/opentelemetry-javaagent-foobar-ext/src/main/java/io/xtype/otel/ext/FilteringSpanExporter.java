@@ -30,9 +30,7 @@ public class FilteringSpanExporter implements SpanExporter {
     var spanName = span.getName().toLowerCase();
     var status = span.getStatus().getStatusCode();
 
-    var result = status == StatusCode.ERROR && spanName.contains("i-am-a-child-span");
-    System.out.println(">>> " + result);
-    return result;
+    return status == StatusCode.ERROR && spanName.contains("i-am-a-child-span");
   }
 
   @Override
