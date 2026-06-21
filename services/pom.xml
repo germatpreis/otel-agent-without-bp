@@ -80,6 +80,11 @@
                 <artifactId>opentelemetry-instrumentation-annotations</artifactId>
                 <version>${opentelemetry.javaagent.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.xtype.libraries</groupId>
+                <artifactId>audittrail</artifactId>
+                <version>${version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

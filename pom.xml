@@ -20,6 +20,7 @@
 
     <modules>
         <module>api</module>
+        <module>libraries</module>
         <module>services</module>
         <module>services-mothballed</module>
         <module>agents</module>

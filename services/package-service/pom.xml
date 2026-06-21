@@ -17,6 +17,13 @@
     <java.version>21</java.version>
   </properties>
 
+  <dependencies>
+    <dependency>
+      <groupId>io.xtype.libraries</groupId>
+      <artifactId>audittrail</artifactId>
+    </dependency>
+  </dependencies>
+
   <build>
     <plugins>
       <plugin>

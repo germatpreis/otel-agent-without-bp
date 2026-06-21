@@ -1,39 +1,26 @@
-package io.xtype.server;
+package io.xtype.libraries.audittrail;
 
 import static io.xtype.springboot.kafka.ApplicationConstants.OtelSemanticConventions.AUDIT_TRAIL_PATH;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.opentelemetry.api.baggage.Baggage;
-import io.xtype.springboot.kafka.producer.KafkaProducer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import xtype.common.AuditContext;
 import xtype.common.User;
 
-@ExtendWith(MockitoExtension.class)
-class PackageServiceTest {
-
-  @Mock
-  private KafkaProducer<Object> kafkaProducer;
+class AudittrailBuilderTest {
 
   @Test
   void givenNoAuditTrailPathInContext_expectAuditTrailPathIsCreated() {
-    var sut = new PackageService(kafkaProducer);
+    var actual = AudittrailBuilder.forContext(createAuditContext("aaa")).build();
 
-    var actual = sut.buildAuditTrailPathFromAuditContext(createAuditContext("aaa"));
-
-    assertThat(actual).isEqualTo("audittrail:/package/aaa");
+    assertThat(actual.getPath()).hasToString("audittrail:/package/aaa");
   }
 
   @Test
   void givenAuditTrailPathInContext_expectNewAuditTrailPathIsAppended() {
-    var sut = new PackageService(kafkaProducer);
-
-    // given
     var release = createAuditContext("release", "aaa");
-    var auditTrailPath = sut.buildAuditTrailPathFromAuditContext(release);
+    var auditTrailPath = AudittrailBuilder.forContext(release).build().getPath().toString();
 
     try (var scope = Baggage.current().toBuilder()
         .put(AUDIT_TRAIL_PATH, auditTrailPath)
@@ -41,8 +28,8 @@ class PackageServiceTest {
         .makeCurrent()) {
 
       var pkg = createAuditContext("package", "bbb");
-      var actual = sut.buildAuditTrailPathFromAuditContext(pkg);
-      assertThat(actual).isEqualTo("audittrail:/release/aaa/package/bbb");
+      var actual = AudittrailBuilder.forContext(pkg).build();
+      assertThat(actual.getPath()).hasToString("audittrail:/release/aaa/package/bbb");
     }
   }
 
@@ -54,12 +41,10 @@ class PackageServiceTest {
     var context = new AuditContext();
     context.setEntityId(entityId);
     context.setEntityType(entityType);
+    context.setActorType("USER");
     context.setActor(new User("foobar", "foobar"));
     context.setOperation("%s.action".formatted(entityType));
     context.setEntityName("%s '%s'".formatted(entityType, entityId));
     return context;
   }
-
-
-
 }
