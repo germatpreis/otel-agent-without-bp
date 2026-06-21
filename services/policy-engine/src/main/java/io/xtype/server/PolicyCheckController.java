@@ -29,6 +29,14 @@ class PolicyCheckController {
     var path = Baggage.current().getEntryValue(OtelSemanticConventions.AUDIT_TRAIL_PATH);
     LOGGER.info("Received audittrail path {}", path);
 
+    // simulate two policy check executions
+    simulatePolicyCheckExecution();
+    simulatePolicyCheckExecution();
+
+    return ResponseEntity.ok().build();
+  }
+
+  private void simulatePolicyCheckExecution() throws InterruptedException, ExecutionException {
     var policyExecutionId = UUID.randomUUID().toString();
 
     // prepare audit context information needed to propagate (entity type + id)
@@ -41,7 +49,5 @@ class PolicyCheckController {
     try (var scope = auditBaggage.build().makeCurrent()) {
       policyCheckService.executeCheck(policyExecutionId).get();
     }
-
-    return ResponseEntity.ok().build();
   }
 }

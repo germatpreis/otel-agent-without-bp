@@ -21,10 +21,10 @@ class PolicyCheckService {
     LOGGER.info("Received audittrail path {}", path);
 
     var delaySeconds = ThreadLocalRandom.current().nextInt(1, 4);
-    LOGGER.info("Policy check {} running on thread '{}', will complete in {}s",
-        policyExecutionId, Thread.currentThread().getName(), delaySeconds);
+//    LOGGER.info("Policy check {} running on thread '{}', will complete in {}s",
+//        policyExecutionId, Thread.currentThread().getName(), delaySeconds);
     TimeUnit.SECONDS.sleep(delaySeconds);
-    LOGGER.info("Policy check passed");
+//    LOGGER.info("Policy check passed");
     return CompletableFuture.completedFuture(null);
   }
 }

@@ -26,7 +26,7 @@ class PackageService {
   }
 
   public void deployPackage(@Valid DeployPackageRequest request) {
-    // create kafka message
+    // create kafka message (including auditContext which we sent in-line with the fact message)
     var auditContext = createAuditContext(request);
     var payload = createPayload(request);
     var base = createBase();
