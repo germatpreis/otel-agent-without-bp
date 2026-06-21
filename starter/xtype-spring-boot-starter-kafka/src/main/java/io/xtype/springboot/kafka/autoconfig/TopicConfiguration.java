@@ -1,6 +1,8 @@
 package io.xtype.springboot.kafka.autoconfig;
 
-import io.xtype.springboot.kafka.Topics;
+import static io.xtype.springboot.kafka.ApplicationConstants.Topics.TOPIC_DATA;
+import static io.xtype.springboot.kafka.ApplicationConstants.Topics.TOPIC_PACKAGE;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
@@ -12,8 +14,8 @@ public class TopicConfiguration {
   @Bean
   NewTopics xtypeTopics() {
     return new NewTopics(
-        TopicBuilder.name(Topics.TOPIC_DATA).build(),
-        TopicBuilder.name(Topics.TOPIC_PACKAGE).build()
+        TopicBuilder.name(TOPIC_DATA).build(),
+        TopicBuilder.name(TOPIC_PACKAGE).build()
     );
   }
 

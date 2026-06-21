@@ -1,11 +1,13 @@
 package io.xtype.server;
 
+import static io.xtype.springboot.kafka.ApplicationConstants.Topics.TOPIC_PACKAGE;
+
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowOptions;
 import io.xtype.server.temporal.DeployContentItemContext;
 import io.xtype.server.temporal.DeployContentItemContext.AuditInfo;
 import io.xtype.server.temporal.DeployContentItemWorkflow;
-import io.xtype.springboot.kafka.Topics;
+import io.xtype.springboot.kafka.ApplicationConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -28,7 +30,7 @@ public class DeploymentConsumer {
     this.workflowClient = workflowClient;
   }
 
-  @KafkaListener(topics = Topics.TOPIC_PACKAGE)
+  @KafkaListener(topics = TOPIC_PACKAGE)
   public void onMessage(MessageV1 message) {
     LOGGER.info("Received message: {}", message);
 

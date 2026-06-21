@@ -1,8 +1,12 @@
 package io.xtype.server;
 
+import static io.xtype.springboot.kafka.ApplicationConstants.OtelSemanticConventions.AUDIT_TRAIL_PATH;
+import static io.xtype.springboot.kafka.ApplicationConstants.Topics.TOPIC_PACKAGE;
+import static java.util.Objects.requireNonNull;
+
 import io.xtype.server.PackageController.DeployPackageRequest;
-import io.xtype.springboot.kafka.Topics;
 import io.xtype.springboot.kafka.producer.KafkaProducer;
+import io.opentelemetry.api.baggage.Baggage;
 import jakarta.validation.Valid;
 import java.time.Instant;
 import java.util.UUID;
@@ -11,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
 import xtype.common.AuditContext;
 import xtype.common.Base;
 import xtype.common.User;
@@ -30,11 +35,43 @@ class PackageService {
 
   public void deployPackage(@Valid DeployPackageRequest request) {
     var message = buildMessage(request);
-    var record = new ProducerRecord<String, Object>(Topics.TOPIC_PACKAGE, message);
-    kafkaProducer.sendToKafkaAsync(record);
+    var rec = new ProducerRecord<String, Object>(TOPIC_PACKAGE, message);
+
+    var path = buildAuditTrailPathFromAuditContext(message.getAudit());
+
+    try (var scope = Baggage.current().toBuilder()
+        .put(AUDIT_TRAIL_PATH, path)
+        .build()
+        .makeCurrent()) {
+      kafkaProducer.sendToKafkaAsync(rec);
+    }
   }
 
-  @KafkaListener(topics = Topics.TOPIC_PACKAGE)
+  String buildAuditTrailPathFromAuditContext(AuditContext auditContext) {
+    var currentBaggage = Baggage.current();
+    var entryValue = currentBaggage.getEntryValue(AUDIT_TRAIL_PATH);
+
+    var entityType = auditContext.getEntityType();
+    var entityId = auditContext.getEntityId();
+
+    requireNonNull(entityType, "value must not be null");
+    requireNonNull(entityId, "value must not be null");
+
+    var builder = UriComponentsBuilder.newInstance();
+
+    if (entryValue == null) {
+      builder = builder
+          .scheme("audittrail")
+          .pathSegment(entityType.toString(), entityId.toString());
+    } else {
+      builder = UriComponentsBuilder
+          .fromUriString(entryValue)
+          .pathSegment(entityType.toString(), entityId.toString());
+    }
+    return builder.toUriString();
+  }
+
+  @KafkaListener(topics = TOPIC_PACKAGE)
   public void dummyListener(MessageV1 message) {
     LOGGER.info("Received message: " + message);
   }
