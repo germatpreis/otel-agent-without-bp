@@ -5,7 +5,7 @@ import java.util.UUID;
 public record DeployContentItemContext(
     UUID eventUuid,
     AuditInfo audit,
-    UUID contentItemUid,
+    String contentItemUid,
     String contentItemType,
     String contentItemName
 ) {

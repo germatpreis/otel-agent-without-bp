@@ -8,7 +8,7 @@
       "type": "xtype.common.Base"
     },
     {
-      "name": "audit",
+      "name": "auditContext",
       "type": ["null", "xtype.common.AuditContext"],
       "default": null,
       "doc": "Audit-trail context for an auditable action."

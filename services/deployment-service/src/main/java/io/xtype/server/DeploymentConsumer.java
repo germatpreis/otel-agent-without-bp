@@ -1,12 +1,11 @@
 package io.xtype.server;
 
-import static io.xtype.springboot.kafka.ApplicationConstants.OtelSemanticConventions.AUDIT_TRAIL_PATH;
 import static io.xtype.springboot.kafka.ApplicationConstants.Topics.TOPIC_PACKAGE;
 
 import io.opentelemetry.api.baggage.Baggage;
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowOptions;
-import io.xtype.libraries.audittrail.AuditContextBuilder;
+import io.xtype.libraries.audittrail.AuditBaggageBuilder;
 import io.xtype.server.temporal.DeployContentItemContext;
 import io.xtype.server.temporal.DeployContentItemContext.AuditInfo;
 import io.xtype.server.temporal.DeployContentItemWorkflow;
@@ -17,10 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import xtype.common.AuditContext;
-import xtype.common.Base;
 import xtype.package$.event.internal.v1.MessageV1;
 import xtype.package$.event.internal.v1.data.DeployPackageEventV1;
-import xtype.package$.event.internal.v1.data.PackageContentItemV1;
 
 @Service
 public class DeploymentConsumer {
@@ -41,24 +38,31 @@ public class DeploymentConsumer {
 
     var base = message.getBase();
     var payload = (DeployPackageEventV1) message.getPayload();
+    var auditContext = message.getAuditContext();
+
+    var temporalAuditInfo = toAuditInfo(auditContext);
+
+    var entityType = "updateset";
 
     for (var contentItem : payload.getContent()) {
+      var entityId = contentItem.getUid().toString();
+      var entityName = contentItem.getName().toString();
 
-      var newAuditContext = AuditContextBuilder.newBuilder()
-          .entityType("updateset")
-          .entityId(contentItem.getUid().toString())
-          .entityName(contentItem.getName().toString())
-          .operation("deploy")
-          .build();
+      // prepare audit context information needed to propagate (entity type + id)
+      var auditBaggage = AuditBaggageBuilder
+          .newBuilder()
+          .auditEntity(entityType, entityId);
 
-      try (var scope = Baggage.current().toBuilder()
-          // attach the audittrail://package/<packageId>/updateset/<updateSetUid> to the baggage for the next call
-          // all subsequent requests (will have this baggage set)
-          .put(AUDIT_TRAIL_PATH, newAuditContext.getPath().toString())
-          .build()
-          .makeCurrent()) {
-
-        var temporalContext = buildTemporalContext(base, newAuditContext, contentItem);
+      // attach the audittrail://package/<packageId>/updateset/<updateSetUid> to the baggage for the next call
+      // all following requests (regardless of the transport mechanism) will have this baggage set
+      try (var scope = auditBaggage.build().makeCurrent()) {
+        var temporalContext = new DeployContentItemContext(
+            base.getUuid(),
+            temporalAuditInfo,
+            entityId,
+            entityType,
+            entityName
+        );
         startWorkflow(temporalContext);
       }
     }
@@ -73,28 +77,16 @@ public class DeploymentConsumer {
     WorkflowClient.start(stub::execute, context);
   }
 
-  private static DeployContentItemContext buildTemporalContext(
-      Base base, AuditContext audit, PackageContentItemV1 contentItem
-  ) {
-    return new DeployContentItemContext(
-        base.getUuid(),
-        audit != null ? toAuditInfo(audit) : null,
-        contentItem.getUid(),
-        contentItem.getType().toString(),
-        contentItem.getName().toString()
-    );
-  }
-
   private static AuditInfo toAuditInfo(AuditContext audit) {
     var actor = audit.getActor();
     return new AuditInfo(
         audit.getOperation().toString(),
         audit.getEntityType().toString(),
         audit.getEntityId().toString(),
-        audit.getEntityName() != null ? audit.getEntityName().toString() : null,
+        audit.getEntityName().toString(),
         audit.getActorType().toString(),
-        actor.getTechnicalUserName() != null ? actor.getTechnicalUserName().toString() : null,
-        actor.getDisplayUserName() != null ? actor.getDisplayUserName().toString() : null
+        actor.getTechnicalUserName().toString(),
+        actor.getDisplayUserName().toString()
     );
   }
 }

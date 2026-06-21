@@ -1,11 +1,8 @@
 package io.xtype.server;
 
-import static io.xtype.libraries.audittrail.AuditContextBuilder.ACTOR_TYPE_USER;
-import static io.xtype.springboot.kafka.ApplicationConstants.OtelSemanticConventions.AUDIT_TRAIL_PATH;
 import static io.xtype.springboot.kafka.ApplicationConstants.Topics.TOPIC_PACKAGE;
 
-import io.opentelemetry.api.baggage.Baggage;
-import io.xtype.libraries.audittrail.AuditContextBuilder;
+import io.xtype.libraries.audittrail.AuditBaggageBuilder;
 import io.xtype.server.PackageController.DeployPackageRequest;
 import io.xtype.springboot.kafka.producer.KafkaProducer;
 import jakarta.validation.Valid;
@@ -29,29 +26,32 @@ class PackageService {
   }
 
   public void deployPackage(@Valid DeployPackageRequest request) {
-    var auditContext = AuditContextBuilder.forContext(auditContextFromRequest(request)).build();
-    var base = dummyBase();
-    var payload = payloadFromRequest(request);
+    // create kafka message
+    var auditContext = createAuditContext(request);
+    var payload = createPayload(request);
+    var base = createBase();
 
     var message = MessageV1.newBuilder()
         .setBase(base)
-        .setAudit(auditContext)
+        .setAuditContext(auditContext)
         .setPayload(payload)
         .build();
 
     var rec = new ProducerRecord<String, Object>(TOPIC_PACKAGE, message);
 
-    try (var scope = Baggage.current().toBuilder()
-        // attach the audittrail://package/<packageId> to the baggage for the next call
-        // all subsequent requests (will have this baggage set)
-        .put(AUDIT_TRAIL_PATH, auditContext.getPath().toString())
-        .build()
-        .makeCurrent()) {
+    // prepare audit context information needed to propagate (entity type + id)
+    var auditBaggage = AuditBaggageBuilder
+        .newBuilder()
+        .auditEntity(auditContext.getEntityType().toString(), auditContext.getEntityId().toString());
+
+    // attach the audittrail://package/<packageId> to the baggage for the next call
+    // all following requests (regardless of the transport mechanism) will have this baggage set
+    try (var scope = auditBaggage.build().makeCurrent()) {
       kafkaProducer.sendToKafkaAsync(rec);
     }
   }
 
-  private static Base dummyBase() {
+  private static Base createBase() {
     return Base.newBuilder()
         .setUuid(UUID.randomUUID())
         .setUid(null)
@@ -64,13 +64,13 @@ class PackageService {
         .build();
   }
 
-  private static AuditContext auditContextFromRequest(DeployPackageRequest request) {
+  private static AuditContext createAuditContext(DeployPackageRequest request) {
     return AuditContext.newBuilder()
         .setEntityType("package")
         .setOperation("deploy")
         .setEntityId(request.packageId().toString())
         .setEntityName(request.packageName())
-        .setActorType(ACTOR_TYPE_USER)
+        .setActorType("USER")
         .setActor(User.newBuilder()
             .setTechnicalUserName(request.triggeredBy())
             .setDisplayUserName(request.triggeredBy())
@@ -78,7 +78,7 @@ class PackageService {
         .build();
   }
 
-  private static DeployPackageEventV1 payloadFromRequest(DeployPackageRequest request) {
+  private static DeployPackageEventV1 createPayload(DeployPackageRequest request) {
     return DeployPackageEventV1.newBuilder()
         .setTriggeredBy(request.triggeredBy())
         .setPackageName(request.packageName())

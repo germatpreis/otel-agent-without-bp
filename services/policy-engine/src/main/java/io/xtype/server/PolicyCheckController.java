@@ -1,9 +1,7 @@
 package io.xtype.server;
 
-import static io.xtype.springboot.kafka.ApplicationConstants.OtelSemanticConventions.AUDIT_TRAIL_PATH;
-
 import io.opentelemetry.api.baggage.Baggage;
-import io.xtype.libraries.audittrail.AuditContextBuilder;
+import io.xtype.libraries.audittrail.AuditBaggageBuilder;
 import io.xtype.springboot.kafka.ApplicationConstants.OtelSemanticConventions;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
@@ -33,18 +31,14 @@ class PolicyCheckController {
 
     var policyExecutionId = UUID.randomUUID().toString();
 
-    var newAuditContext = AuditContextBuilder.newBuilder()
-        .entityType("policy")
-        .entityId(policyExecutionId)
-        .operation("check")
-        .build();
+    // prepare audit context information needed to propagate (entity type + id)
+    var auditBaggage = AuditBaggageBuilder
+        .newBuilder()
+        .auditEntity("policy", policyExecutionId);
 
-    try (var scope = Baggage.current().toBuilder()
-        // attach the audittrail://package/<packageId>/updateset/<updateSetUid>/policy/<policyExecutionid> to the baggage for the next call
-        // all subsequent requests (will have this baggage set)
-        .put(AUDIT_TRAIL_PATH, newAuditContext.getPath().toString())
-        .build()
-        .makeCurrent()) {
+    // attach the audittrail://package/<packageId>/updateset/<updateSetUid>/policy/<policyExecutionId> to the baggage for the next call
+    // all following requests (regardless of the transport mechanism) will have this baggage set
+    try (var scope = auditBaggage.build().makeCurrent()) {
       policyCheckService.executeCheck(policyExecutionId).get();
     }
 
