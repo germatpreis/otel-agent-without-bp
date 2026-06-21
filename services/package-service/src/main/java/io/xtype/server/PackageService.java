@@ -1,5 +1,6 @@
 package io.xtype.server;
 
+import static io.xtype.libraries.audittrail.AuditContextBuilder.ACTOR_TYPE_USER;
 import static io.xtype.springboot.kafka.ApplicationConstants.OtelSemanticConventions.AUDIT_TRAIL_PATH;
 import static io.xtype.springboot.kafka.ApplicationConstants.Topics.TOPIC_PACKAGE;
 
@@ -65,11 +66,11 @@ class PackageService {
 
   private static AuditContext auditContextFromRequest(DeployPackageRequest request) {
     return AuditContext.newBuilder()
-        .setOperation("package.deploy")
         .setEntityType("package")
+        .setOperation("deploy")
         .setEntityId(request.packageId().toString())
         .setEntityName(request.packageName())
-        .setActorType("USER")
+        .setActorType(ACTOR_TYPE_USER)
         .setActor(User.newBuilder()
             .setTechnicalUserName(request.triggeredBy())
             .setDisplayUserName(request.triggeredBy())

@@ -4,10 +4,6 @@ import java.util.UUID;
 
 public record DeployContentItemContext(
     UUID eventUuid,
-    String eventType,
-    String eventVersion,
-    long createdAt,
-    String applicationId,
     AuditInfo audit,
     UUID contentItemUid,
     String contentItemType,

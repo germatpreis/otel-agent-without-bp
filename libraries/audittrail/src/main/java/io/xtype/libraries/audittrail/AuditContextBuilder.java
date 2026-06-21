@@ -9,6 +9,11 @@ import xtype.common.AuditContext;
 import xtype.common.User;
 
 public final class AuditContextBuilder {
+  public static String ACTOR_TYPE_USER = "USER";
+  public static String ACTOR_TYPE_SYSTEM = "SYSTEM";
+  public static User SYSTEM = new User("SYSTEM", "System");
+
+
 
   private String operation;
   private String entityType;
@@ -18,6 +23,10 @@ public final class AuditContextBuilder {
   private User actor;
 
   private AuditContextBuilder() {}
+
+  public static AuditContextBuilder newBuilder() {
+    return new AuditContextBuilder();
+  }
 
   public static AuditContextBuilder forContext(AuditContext context) {
     var builder = new AuditContextBuilder();
@@ -72,6 +81,18 @@ public final class AuditContextBuilder {
   }
 
   public AuditContext build() {
+
+    if (actorType == null) {
+      actorType = SYSTEM.getTechnicalUserName().toString();
+    }
+    if (actor == null) {
+      actor = SYSTEM;
+    }
+
+    if (operation != null) {
+      operation = "%s.%s".formatted(entityType, operation);
+    }
+
     return AuditContext.newBuilder()
         .setOperation(operation)
         .setEntityType(entityType)

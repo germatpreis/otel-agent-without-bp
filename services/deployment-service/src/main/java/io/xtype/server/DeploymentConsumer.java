@@ -1,14 +1,17 @@
 package io.xtype.server;
 
+import static io.xtype.springboot.kafka.ApplicationConstants.OtelSemanticConventions.AUDIT_TRAIL_PATH;
 import static io.xtype.springboot.kafka.ApplicationConstants.Topics.TOPIC_PACKAGE;
 
 import io.opentelemetry.api.baggage.Baggage;
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowOptions;
+import io.xtype.libraries.audittrail.AuditContextBuilder;
 import io.xtype.server.temporal.DeployContentItemContext;
 import io.xtype.server.temporal.DeployContentItemContext.AuditInfo;
 import io.xtype.server.temporal.DeployContentItemWorkflow;
 import io.xtype.springboot.kafka.ApplicationConstants.OtelSemanticConventions;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -34,21 +37,34 @@ public class DeploymentConsumer {
   @KafkaListener(topics = TOPIC_PACKAGE)
   public void onMessage(MessageV1 message) {
     var path = Baggage.current().getEntryValue(OtelSemanticConventions.AUDIT_TRAIL_PATH);
-    LOGGER.info("Received message: {}, with audittrail path {}", message, path);
+    LOGGER.info("Received audittrail path {}", path);
 
     var payload = (DeployPackageEventV1) message.getPayload();
-    var base = message.getBase();
-    var audit = message.getAudit();
 
     for (var contentItem : payload.getContent()) {
-      var context = buildContext(base, audit, contentItem);
-      startWorkflow(context);
+
+      var auditContext = AuditContextBuilder.newBuilder()
+          .entityType("updateset")
+          .entityId(contentItem.getUid().toString())
+          .entityName(contentItem.getName().toString())
+          .operation("deploy")
+          .build();
+
+      try (var scope = Baggage.current().toBuilder()
+          // attach the audittrail://package/<packageId>/updateset/<updateSetUid> to the baggage for the next call
+          // all subsequent requests (will have this baggage set)
+          .put(AUDIT_TRAIL_PATH, auditContext.getPath().toString())
+          .build()
+          .makeCurrent()) {
+        var context = buildContext(message.getBase(), auditContext, contentItem);
+        startWorkflow(context);
+      }
     }
   }
 
   private void startWorkflow(DeployContentItemContext context) {
     var options = WorkflowOptions.newBuilder()
-        .setWorkflowId("deploy-content-item-" + context.contentItemUid())
+        .setWorkflowId("deploy-content-item-" + UUID.randomUUID())
         .setTaskQueue(TASK_QUEUE)
         .build();
     var stub = workflowClient.newWorkflowStub(DeployContentItemWorkflow.class, options);
@@ -60,10 +76,6 @@ public class DeploymentConsumer {
   ) {
     return new DeployContentItemContext(
         base.getUuid(),
-        base.getEventType().toString(),
-        base.getEventVersion().toString(),
-        base.getCreatedAt(),
-        base.getApplicationId().toString(),
         audit != null ? toAuditInfo(audit) : null,
         contentItem.getUid(),
         contentItem.getType().toString(),

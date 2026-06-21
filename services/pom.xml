@@ -52,6 +52,10 @@
             <artifactId>avro-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.xtype.libraries</groupId>
+            <artifactId>audittrail</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
