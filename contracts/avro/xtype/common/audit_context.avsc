@@ -34,6 +34,12 @@
       "name": "actor",
       "type": "xtype.common.User",
       "doc": "The acting user. Both name fields are null for SYSTEM actions."
+    },
+    {
+      "name": "path",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The full audittrail:// uri that addresses the current entity in the hierarchy"
     }
   ]
 }

@@ -11,9 +11,6 @@ import jakarta.validation.Valid;
 import java.time.Instant;
 import java.util.UUID;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 import xtype.common.AuditContext;
@@ -25,8 +22,6 @@ import xtype.package$.event.internal.v1.data.PackageContentItemV1;
 
 @Service
 class PackageService {
-  private static final Logger LOGGER = LoggerFactory.getLogger(PackageService.class);
-
   private final KafkaProducer<Object> kafkaProducer;
 
   PackageService(KafkaProducer<Object> kafkaProducer) {
@@ -34,17 +29,33 @@ class PackageService {
   }
 
   public void deployPackage(@Valid DeployPackageRequest request) {
-    var message = buildMessage(request);
+    // create the initial audit context (no baggage entry for `x-at-path` yet)
+    // after enrichment, the context has a audittrail://package/<packageId> value in $.path
+    var auditContext = enrichAuditContextWithPath(auditContextFromRequest(request));
+    var base = dummyBase();
+    var payload = payloadFromRequest(request);
+
+    var message = MessageV1.newBuilder()
+        .setBase(base)
+        .setAudit(auditContext)
+        .setPayload(payload)
+        .build();
+
     var rec = new ProducerRecord<String, Object>(TOPIC_PACKAGE, message);
 
-    var path = buildAuditTrailPathFromAuditContext(message.getAudit());
-
     try (var scope = Baggage.current().toBuilder()
-        .put(AUDIT_TRAIL_PATH, path)
+        // attach the audittrail://package/<packageId> to the baggage for the next call
+        // all subsequent requests (will have this baggage set)
+        .put(AUDIT_TRAIL_PATH, auditContext.getPath().toString())
         .build()
         .makeCurrent()) {
       kafkaProducer.sendToKafkaAsync(rec);
     }
+  }
+
+  AuditContext enrichAuditContextWithPath(AuditContext context) {
+    var path = buildAuditTrailPathFromAuditContext(context);
+    return AuditContext.newBuilder(context).setPath(path).build();
   }
 
   String buildAuditTrailPathFromAuditContext(AuditContext auditContext) {
@@ -68,20 +79,8 @@ class PackageService {
           .fromUriString(entryValue)
           .pathSegment(entityType.toString(), entityId.toString());
     }
+
     return builder.toUriString();
-  }
-
-  @KafkaListener(topics = TOPIC_PACKAGE)
-  public void dummyListener(MessageV1 message) {
-    LOGGER.info("Received message: " + message);
-  }
-
-  private static MessageV1 buildMessage(DeployPackageRequest request) {
-    return MessageV1.newBuilder()
-        .setBase(dummyBase())
-        .setAudit(dummyAudit(request))
-        .setPayload(buildPayload(request))
-        .build();
   }
 
   private static Base dummyBase() {
@@ -97,7 +96,7 @@ class PackageService {
         .build();
   }
 
-  private static AuditContext dummyAudit(DeployPackageRequest request) {
+  private static AuditContext auditContextFromRequest(DeployPackageRequest request) {
     return AuditContext.newBuilder()
         .setOperation("package.deploy")
         .setEntityType("package")
@@ -111,7 +110,7 @@ class PackageService {
         .build();
   }
 
-  private static DeployPackageEventV1 buildPayload(DeployPackageRequest request) {
+  private static DeployPackageEventV1 payloadFromRequest(DeployPackageRequest request) {
     return DeployPackageEventV1.newBuilder()
         .setTriggeredBy(request.triggeredBy())
         .setPackageName(request.packageName())

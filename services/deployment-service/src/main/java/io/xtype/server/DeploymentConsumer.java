@@ -2,12 +2,13 @@ package io.xtype.server;
 
 import static io.xtype.springboot.kafka.ApplicationConstants.Topics.TOPIC_PACKAGE;
 
+import io.opentelemetry.api.baggage.Baggage;
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowOptions;
 import io.xtype.server.temporal.DeployContentItemContext;
 import io.xtype.server.temporal.DeployContentItemContext.AuditInfo;
 import io.xtype.server.temporal.DeployContentItemWorkflow;
-import io.xtype.springboot.kafka.ApplicationConstants;
+import io.xtype.springboot.kafka.ApplicationConstants.OtelSemanticConventions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -32,7 +33,8 @@ public class DeploymentConsumer {
 
   @KafkaListener(topics = TOPIC_PACKAGE)
   public void onMessage(MessageV1 message) {
-    LOGGER.info("Received message: {}", message);
+    var path = Baggage.current().getEntryValue(OtelSemanticConventions.AUDIT_TRAIL_PATH);
+    LOGGER.info("Received message: {}, with audittrail path {}", message, path);
 
     var payload = (DeployPackageEventV1) message.getPayload();
     var base = message.getBase();
