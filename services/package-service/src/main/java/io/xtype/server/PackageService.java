@@ -42,7 +42,7 @@ class PackageService {
     // prepare audit context information needed to propagate (entity type + id)
     var auditBaggage = AuditBaggageBuilder
         .newBuilder()
-        .auditEntity(auditContext.getEntityType().toString(), auditContext.getEntityId().toString());
+        .auditDomainEntity(auditContext.getEntityType().toString(), auditContext.getEntityId().toString());
 
     // attach the audittrail://package/<packageId> to the baggage for the next call
     // all following requests (regardless of the transport mechanism) will have this baggage set

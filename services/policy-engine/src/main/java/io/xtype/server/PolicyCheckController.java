@@ -34,7 +34,7 @@ class PolicyCheckController {
     // prepare audit context information needed to propagate (entity type + id)
     var auditBaggage = AuditBaggageBuilder
         .newBuilder()
-        .auditEntity("policy", policyExecutionId);
+        .auditDomainEntity("policy", policyExecutionId);
 
     // attach the audittrail://package/<packageId>/updateset/<updateSetUid>/policy/<policyExecutionId> to the baggage for the next call
     // all following requests (regardless of the transport mechanism) will have this baggage set

@@ -51,7 +51,7 @@ public class DeploymentConsumer {
       // prepare audit context information needed to propagate (entity type + id)
       var auditBaggage = AuditBaggageBuilder
           .newBuilder()
-          .auditEntity(entityType, entityId);
+          .auditDomainEntity(entityType, entityId);
 
       // attach the audittrail://package/<packageId>/updateset/<updateSetUid> to the baggage for the next call
       // all following requests (regardless of the transport mechanism) will have this baggage set
