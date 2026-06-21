@@ -4,7 +4,7 @@ import static io.xtype.springboot.kafka.ApplicationConstants.OtelSemanticConvent
 import static io.xtype.springboot.kafka.ApplicationConstants.Topics.TOPIC_PACKAGE;
 
 import io.opentelemetry.api.baggage.Baggage;
-import io.xtype.libraries.audittrail.AudittrailBuilder;
+import io.xtype.libraries.audittrail.AuditContextBuilder;
 import io.xtype.server.PackageController.DeployPackageRequest;
 import io.xtype.springboot.kafka.producer.KafkaProducer;
 import jakarta.validation.Valid;
@@ -28,7 +28,7 @@ class PackageService {
   }
 
   public void deployPackage(@Valid DeployPackageRequest request) {
-    var auditContext = AudittrailBuilder.forContext(auditContextFromRequest(request)).build();
+    var auditContext = AuditContextBuilder.forContext(auditContextFromRequest(request)).build();
     var base = dummyBase();
     var payload = payloadFromRequest(request);
 

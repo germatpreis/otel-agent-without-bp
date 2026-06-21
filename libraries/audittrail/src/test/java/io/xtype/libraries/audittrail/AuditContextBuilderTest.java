@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 import xtype.common.AuditContext;
 import xtype.common.User;
 
-class AudittrailBuilderTest {
+class AuditContextBuilderTest {
 
   @Test
   void givenNoAuditTrailPathInContext_expectAuditTrailPathIsCreated() {
-    var actual = AudittrailBuilder.forContext(createAuditContext("aaa")).build();
+    var actual = AuditContextBuilder.forContext(createAuditContext("aaa")).build();
 
     assertThat(actual.getPath()).hasToString("audittrail:/package/aaa");
   }
@@ -20,7 +20,7 @@ class AudittrailBuilderTest {
   @Test
   void givenAuditTrailPathInContext_expectNewAuditTrailPathIsAppended() {
     var release = createAuditContext("release", "aaa");
-    var auditTrailPath = AudittrailBuilder.forContext(release).build().getPath().toString();
+    var auditTrailPath = AuditContextBuilder.forContext(release).build().getPath().toString();
 
     try (var scope = Baggage.current().toBuilder()
         .put(AUDIT_TRAIL_PATH, auditTrailPath)
@@ -28,7 +28,7 @@ class AudittrailBuilderTest {
         .makeCurrent()) {
 
       var pkg = createAuditContext("package", "bbb");
-      var actual = AudittrailBuilder.forContext(pkg).build();
+      var actual = AuditContextBuilder.forContext(pkg).build();
       assertThat(actual.getPath()).hasToString("audittrail:/release/aaa/package/bbb");
     }
   }

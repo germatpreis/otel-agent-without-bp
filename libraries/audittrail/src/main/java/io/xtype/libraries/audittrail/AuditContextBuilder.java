@@ -7,16 +7,16 @@ import io.opentelemetry.api.baggage.Baggage;
 import org.springframework.web.util.UriComponentsBuilder;
 import xtype.common.AuditContext;
 
-public final class AudittrailBuilder {
+public final class AuditContextBuilder {
 
   private final AuditContext context;
 
-  private AudittrailBuilder(AuditContext context) {
+  private AuditContextBuilder(AuditContext context) {
     this.context = context;
   }
 
-  public static AudittrailBuilder forContext(AuditContext context) {
-    return new AudittrailBuilder(context);
+  public static AuditContextBuilder forContext(AuditContext context) {
+    return new AuditContextBuilder(context);
   }
 
   public AuditContext build() {
