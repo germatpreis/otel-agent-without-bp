@@ -27,26 +27,24 @@ class PackageService {
 
   public void deployPackage(@Valid DeployPackageRequest request) {
     // create kafka message (including auditContext which we sent in-line with the fact message)
-    var auditContext = createAuditContext(request);
     var payload = createPayload(request);
     var base = createBase();
 
-    var message = MessageV1.newBuilder()
+    var messageBuilder = MessageV1.newBuilder()
         .setBase(base)
-        .setAuditContext(auditContext)
-        .setPayload(payload)
-        .build();
-
-    var rec = new ProducerRecord<String, Object>(TOPIC_PACKAGE, message);
+        .setPayload(payload);
 
     // prepare audit context information needed to propagate (entity type + id)
     var auditBaggage = AuditBaggageBuilder
         .newBuilder()
-        .auditDomainEntity(auditContext.getEntityType().toString(), auditContext.getEntityId().toString());
+        .auditDomainEntity("package", request.packageId().toString());
 
     // attach the audittrail://package/<packageId> to the baggage for the next call
     // all following requests (regardless of the transport mechanism) will have this baggage set
     try (var scope = auditBaggage.build().makeCurrent()) {
+      var auditContext = createAuditContext(request, auditBaggage.getUri());
+      var message = messageBuilder.setAuditContext(auditContext).build();
+      var rec = new ProducerRecord<String, Object>(TOPIC_PACKAGE, message);
       kafkaProducer.sendToKafkaAsync(rec);
     }
   }
@@ -55,7 +53,7 @@ class PackageService {
     return Base.newBuilder()
         .setUuid(UUID.randomUUID())
         .setUid(null)
-        .setEventType("package.deploy")
+        .setEventType(DeployPackageEventV1.SCHEMA$.getName())
         .setEventVersion("1.0")
         .setCreatedAt(Instant.now().toEpochMilli())
         .setApplicationId("package-service")
@@ -64,7 +62,7 @@ class PackageService {
         .build();
   }
 
-  private static AuditContext createAuditContext(DeployPackageRequest request) {
+  private static AuditContext createAuditContext(DeployPackageRequest request, String uri) {
     return AuditContext.newBuilder()
         .setEntityType("package")
         .setOperation("deploy")
@@ -75,6 +73,7 @@ class PackageService {
             .setTechnicalUserName(request.triggeredBy())
             .setDisplayUserName(request.triggeredBy())
             .build())
+        .setPath(uri)
         .build();
   }
 

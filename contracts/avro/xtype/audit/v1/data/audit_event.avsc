@@ -1,5 +1,5 @@
 {
-  "namespace": "xtype.audit.event.internal.v1.data",
+  "namespace": "xtype.audit.event.external.v1.data",
   "type": "record",
   "name": "AuditEventV1",
   "fields": []

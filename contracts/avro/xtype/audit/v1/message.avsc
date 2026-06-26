@@ -1,5 +1,5 @@
 {
-  "namespace": "xtype.audit.event.internal.v1",
+  "namespace": "xtype.audit.event.external.v1",
   "type": "record",
   "name": "MessageV1",
   "fields": [
@@ -15,7 +15,7 @@
     {
       "name": "payload",
       "type": [
-        "xtype.audit.event.internal.v1.data.AuditEventV1"
+        "xtype.audit.event.external.v1.data.AuditEventV1"
       ]
     }
   ]

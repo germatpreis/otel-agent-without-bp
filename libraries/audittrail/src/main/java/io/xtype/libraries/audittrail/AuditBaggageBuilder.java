@@ -68,6 +68,10 @@ public class AuditBaggageBuilder {
         });
   }
 
+  public static Optional<String> getPath() {
+    return ofNullable(Baggage.current().getEntryValue(AUDIT_TRAIL_PATH));
+  }
+
   public AuditBaggageBuilder put(String key, String value, BaggageEntryMetadata entryMetadata) {
     baggageBuilder.put(key, value, entryMetadata);
     return this;

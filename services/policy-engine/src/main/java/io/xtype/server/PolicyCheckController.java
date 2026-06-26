@@ -26,7 +26,8 @@ class PolicyCheckController {
 
   @PostMapping
   public ResponseEntity<Void> checkPolicy() throws InterruptedException, ExecutionException {
-    var path = Baggage.current().getEntryValue(OtelSemanticConventions.AUDIT_TRAIL_PATH);
+    var baggage = Baggage.current();
+    var path = baggage.getEntryValue(OtelSemanticConventions.AUDIT_TRAIL_PATH);
     LOGGER.info("Received audittrail path {}", path);
 
     // simulate two policy check executions

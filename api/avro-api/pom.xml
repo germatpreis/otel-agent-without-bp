@@ -82,8 +82,10 @@
             <xtype-common-audit-context>${avro-spec-base-dir}/xtype/common/audit_context.avsc</xtype-common-audit-context>
             <!-- Data schemas -->
             <xtype-package-deploy-package-event-v1>${avro-spec-base-dir}/xtype/package/v1/data/deploy_package_event.avsc</xtype-package-deploy-package-event-v1>
+            <xtype-audit-event-v1>${avro-spec-base-dir}/xtype/audit/v1/data/audit_event.avsc</xtype-audit-event-v1>
             <!-- Message envelopes (topic value schemas) -->
             <xtype-package-event-internal-v1-value>${avro-spec-base-dir}/xtype/package/v1/message.avsc</xtype-package-event-internal-v1-value>
+            <xtype-audit-event-external-v1-value>${avro-spec-base-dir}/xtype/audit/v1/message.avsc</xtype-audit-event-external-v1-value>
           </subjects>
           <references>
             <xtype-common-audit-context>
@@ -120,6 +122,23 @@
                 <version>-1</version>
               </reference>
             </xtype-package-event-internal-v1-value>
+            <xtype-audit-event-external-v1-value>
+              <reference>
+                <name>xtype.common.Base</name>
+                <subject>xtype-common-base</subject>
+                <version>-1</version>
+              </reference>
+              <reference>
+                <name>xtype.common.AuditContext</name>
+                <subject>xtype-common-audit-context</subject>
+                <version>-1</version>
+              </reference>
+              <reference>
+                <name>xtype.audit.event.external.v1.data.AuditEventV1</name>
+                <subject>xtype-audit-event-v1</subject>
+                <version>-1</version>
+              </reference>
+            </xtype-audit-event-external-v1-value>
           </references>
         </configuration>
       </plugin>
